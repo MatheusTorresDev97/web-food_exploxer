@@ -7,6 +7,7 @@ export const Container = styled.div`
 
     > input {
         background-color: transparent;
+        color: ${({ theme }) => theme.COLORS.WHITE};
         width: 100%;
 
         margin-top: 10px;

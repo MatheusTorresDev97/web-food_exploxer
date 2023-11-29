@@ -6,10 +6,16 @@ const Button = ({
   isHighlighted = true,
   icon: Icon,
   type,
+  disabled = false,
   ...props
 }) => {
   return (
-    <Container type={type} isHighlighted={isHighlighted} {...props}>
+    <Container
+      type={type}
+      isHighlighted={isHighlighted}
+      disabled={disabled}
+      {...props}
+    >
       {Icon && <Icon />}
       {title}
     </Container>
