@@ -6,9 +6,11 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
   :root {
     font-size: 62.5%;
   }
+
   body, input, textarea {
     font-family: "Roboto", sans-serif;
     font-size: 1.6rem;
@@ -21,6 +23,7 @@ export default createGlobalStyle`
     background-color: ${({ theme }) => theme.COLORS.BLUE_800};
     color: ${({ theme }) => theme.COLORS.WHITE};
   }
+
   a, button, h1 {
     font-family: "Poppins", sans-serif;
   }
@@ -37,4 +40,5 @@ export default createGlobalStyle`
   a {
     text-decoration: none;
   }
+
 `;
