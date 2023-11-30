@@ -1,13 +1,19 @@
 import { useState } from "react";
 import Wrapper from "../Wrapper";
-import { Container, Mobile, Brand, HamburgerMenu, Navigation } from "./styles";
+import {
+  Container,
+  Desktop,
+  Mobile,
+  Brand,
+  HamburgerMenu,
+  Navigation,
+} from "./styles";
 import SearchBar from "../SearchBar";
 import Logo from "../../assets/logo.svg";
 
 import {
   FiMenu,
   FiX,
-  FiSearch,
   FiHeart,
   FiShoppingCart,
   FiUser,
@@ -26,20 +32,59 @@ const Header = () => {
   return (
     <Container>
       <Wrapper>
+        <Desktop>
+          <Brand>
+            <img src={Logo} alt="Foto do logotipo food explorer" />
+            <h2>Food Explorer</h2>
+          </Brand>
+          <nav>
+            <ul>
+              <li>
+                <SearchBar />
+              </li>
+              <li>
+                <a href="#">
+                  <FiHeart />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiShoppingCart />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <TfiReceipt />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiUser />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiLogOut />
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </Desktop>
         <Mobile>
           <div className="top">
             <Brand>
               <img src={Logo} alt="Foto do logotipo food explorer" />
-              <h2>Food Explorer</h2>
+              <h2>food explorer</h2>
             </Brand>
             <HamburgerMenu onClick={handleMenuOpen}>
               {menuOpen ? <FiX /> : <FiMenu />}
             </HamburgerMenu>
           </div>
+
           <Navigation>
             <ul className={menuOpen ? "" : "hidden"}>
               <li>
-                <SearchBar icon={FiSearch} />
+                <SearchBar />
               </li>
               <li>
                 <a href="#">

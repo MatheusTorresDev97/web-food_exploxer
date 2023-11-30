@@ -6,6 +6,37 @@ export const Container = styled.header`
   background-color: ${({ theme }) => theme.COLORS.BLUE_700};
 `;
 
+export const Desktop = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  @media (max-width: 780px) {
+    display: none;
+  }
+  nav {
+    flex-grow: 1;
+    ul {
+      flex-grow: 1;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    li:first-child {
+      flex-grow: 1;
+    }
+    li {
+      list-style: none;
+    }
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+      font-size: 2rem;
+    }
+  }
+`;
+
 export const Mobile = styled.div`
   .top {
     display: flex;
@@ -13,6 +44,10 @@ export const Mobile = styled.div`
 
     @media (min-width: 370px) {
       justify-content: space-between;
+    }
+
+    @media (min-width: 780px) {
+      display: none;
     }
   }
 `;
@@ -48,7 +83,7 @@ export const HamburgerMenu = styled.button`
   border: none;
 
   color: ${({ theme }) => theme.COLORS.WHITE};
-  font-size: 4rem;
+  font-size: 3.5rem;
 `;
 
 export const Navigation = styled.nav`

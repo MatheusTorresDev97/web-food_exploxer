@@ -1,21 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Container } from "./styles";
+import { FiSearch } from "react-icons/fi";
 
-const SearchBar = ({ icon: Icon, ...props }) => {
+const SearchBar = ({ ...props }) => {
   return (
     <Container>
-         <input
+      <input
         type="text"
         placeholder="Busque pelas opções de pratos"
         {...props}
       />
-      {Icon && (
-        <button>
-          <Icon />
-        </button>
-      )}
+      <button>
+        <FiSearch />
+      </button>
     </Container>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;
