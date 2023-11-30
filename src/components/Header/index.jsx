@@ -15,12 +15,12 @@ import Logo from "../../assets/logo.svg";
 import {
   FiMenu,
   FiX,
+  FiPlus,
   FiHeart,
   FiShoppingCart,
   FiUser,
   FiLogOut,
 } from "react-icons/fi";
-
 import { TfiReceipt } from "react-icons/tfi";
 
 const Header = () => {
@@ -28,102 +28,125 @@ const Header = () => {
 
   const [userInfos, setUserInfos] = useState(null);
 
+  const [adm, setAdmin] = useState(false);
+
   function handleMenuOpen() {
     setMenuOpen((prevState) => !prevState);
   }
 
   return (
     <Container>
-      <Wrapper>
-        <Desktop>
-          <Brand>
-            <img src={Logo} alt="Foto do logotipo food explorer" />
-            <h2>Food Explorer</h2>
-          </Brand>
-          <nav>
-            <ul>
+    <Wrapper>
+      <Desktop>
+        <Brand>
+          <img src={Logo} alt="Foto do logotipo food explorer" />
+          <h2>food explorer</h2>
+        </Brand>
+        <nav>
+          <ul>
+            <li>
+              <SearchBar />
+            </li>
+            {adm ? (
               <li>
-                <SearchBar />
+                <a href="#">
+                  <FiPlus />
+                </a>
               </li>
+            ) : (
               <li>
                 <a href="#">
                   <FiHeart />
                 </a>
               </li>
+            )}
+            {!adm && (
               <li>
                 <a href="#">
                   <FiShoppingCart />
                 </a>
               </li>
-              <li>
-                <a href="#">
-                  <TfiReceipt />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FiUser />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FiLogOut />
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </Desktop>
-        <Mobile>
-          <div className="top">
-            <Brand>
-              <img src={Logo} alt="Foto do logotipo food explorer" />
-              <h2>food explorer</h2>
-            </Brand>
-            <HamburgerMenu onClick={handleMenuOpen}>
-              {menuOpen ? <FiX /> : <FiMenu />}
-            </HamburgerMenu>
-          </div>
+            )}
+            <li>
+              <a href="#">
+                <TfiReceipt />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FiUser />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FiLogOut />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </Desktop>
+      <Mobile>
+        <div className="top">
+          <Brand>
+            <img src={Logo} alt="Foto do logotipo food explorer" />
+            <h2>food explorer</h2>
+          </Brand>
+          <HamburgerMenu onClick={handleMenuOpen}>
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </HamburgerMenu>
+        </div>
 
-          <Navigation>
-            <ul className={menuOpen ? "" : "hidden"}>
+        <Navigation>
+          <ul className={menuOpen ? "" : "hidden"}>
+            <li>
+              <SearchBar />
+            </li>
+            {adm ? (
               <li>
-                <SearchBar />
+                <a href="#">
+                  <FiPlus />
+                  Adicionar
+                </a>
               </li>
+            ) : (
               <li>
                 <a href="#">
                   <FiHeart />
                   Favoritos
                 </a>
               </li>
+            )}
+            {!adm && (
               <li>
                 <a href="#">
                   <FiShoppingCart />
                   Carrinho
                 </a>
               </li>
-              <li>
-                <a href="#">
-                  <TfiReceipt />
-                  Pedidos
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FiUser />
-                  Perfil
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FiLogOut />
-                  {userInfos ? "Sair" : "Entrar"}
-                </a>
-              </li>
-            </ul>
-          </Navigation>
-        </Mobile>
-      </Wrapper>
-    </Container>
+            )}
+            <li>
+              <a href="#">
+                <TfiReceipt />
+                Pedidos
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FiUser />
+                Perfil
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FiLogOut />
+                {userInfos ? "Sair" : "Entrar"}
+              </a>
+            </li>
+          </ul>
+        </Navigation>
+      </Mobile>
+    </Wrapper>
+  </Container>
   );
 };
 
