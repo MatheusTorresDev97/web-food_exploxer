@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Wrapper from "../Wrapper";
 import {
@@ -24,6 +25,8 @@ import { TfiReceipt } from "react-icons/tfi";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [userInfos, setUserInfos] = useState(null);
 
   function handleMenuOpen() {
     setMenuOpen((prevState) => !prevState);
@@ -113,7 +116,7 @@ const Header = () => {
               <li>
                 <a href="#">
                   <FiLogOut />
-                  Sair
+                  {userInfos ? "Sair" : "Entrar"}
                 </a>
               </li>
             </ul>

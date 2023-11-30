@@ -98,6 +98,10 @@ export const Navigation = styled.nav`
     &.hidden {
       max-height: 0;
     }
+
+    @media (min-width: 780px) {
+      display: none;
+    }
   }
 
   li:first-child {
