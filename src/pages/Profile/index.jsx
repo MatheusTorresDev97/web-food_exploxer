@@ -5,11 +5,13 @@ import { Container, Form } from "./styles";
 import  ButtonText  from "../../components/ButtonText";
 import  Button  from "../../components/Button";
 import  Input  from "../../components/Input";
+import  Header  from "../../components/Header";
 import  Footer  from "../../components/Footer";
 
 const Profile = () => {
   return (
     <Container>
+      <Header />
         <Form>
         <ButtonText title="voltar" icon={IoIosArrowBack} />
         <h1>Meu perfil</h1>
