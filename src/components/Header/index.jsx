@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Wrapper from "../Wrapper";
-import { Container, Menu, Options } from "./styles";
+import { Container, Mobile, Brand, HamburgerMenu, Navigation } from "./styles";
+import SearchBar from "../SearchBar";
+import Logo from "../../assets/logo.svg";
 
 import {
   FiMenu,
@@ -16,7 +18,6 @@ import { TfiReceipt } from "react-icons/tfi";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(menuOpen);
 
   function handleMenuOpen() {
     setMenuOpen((prevState) => !prevState);
@@ -25,45 +26,54 @@ const Header = () => {
   return (
     <Container>
       <Wrapper>
-        <Menu onClick={handleMenuOpen}>{menuOpen ? <FiX /> : <FiMenu />}</Menu>
-        <Options className={menuOpen ? "" : "hidden"}>
-          <li>
-            <a href="#">
-              <FiSearch />
-              Pesquisar
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <FiHeart />
-              Favoritos
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <FiShoppingCart />
-              Carrinho
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <TfiReceipt />
-              Pedidos
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <FiUser />
-              Perfil
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <FiLogOut />
-              Sair
-            </a>
-          </li>
-        </Options>
+        <Mobile>
+          <div className="top">
+            <Brand>
+              <img src={Logo} alt="Foto do logotipo food explorer" />
+              <h2>Food Explorer</h2>
+            </Brand>
+            <HamburgerMenu onClick={handleMenuOpen}>
+              {menuOpen ? <FiX /> : <FiMenu />}
+            </HamburgerMenu>
+          </div>
+          <Navigation>
+            <ul className={menuOpen ? "" : "hidden"}>
+              <li>
+                <SearchBar icon={FiSearch} />
+              </li>
+              <li>
+                <a href="#">
+                  <FiHeart />
+                  Favoritos
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiShoppingCart />
+                  Carrinho
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <TfiReceipt />
+                  Pedidos
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiUser />
+                  Perfil
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FiLogOut />
+                  Sair
+                </a>
+              </li>
+            </ul>
+          </Navigation>
+        </Mobile>
       </Wrapper>
     </Container>
   );
