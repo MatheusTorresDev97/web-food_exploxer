@@ -3,9 +3,9 @@ import { Container } from "./styles";
 
 const Section = ({ children, title }) => {
   return (
-    <Container>
+    <Container className="my-section">
       <h2>{title}</h2>
-      {children}
+      <div className="items-section">{children}</div>
     </Container>
   );
 };
