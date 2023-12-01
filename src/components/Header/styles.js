@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.header`
   width: 100%;
-  padding: clamp(20px, 6vw, 30px) 0;
+  padding: clamp(15px, 4vw, 30px) 0;
   background-color: ${({ theme }) => theme.COLORS.BLUE_700};
 `;
 
@@ -67,7 +67,7 @@ export const Brand = styled.div`
 
   h2 {
     font-family: "Roboto", sans-serif;
-    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-size: clamp(2rem, 5vw, 2.5rem);
   }
 `;
 

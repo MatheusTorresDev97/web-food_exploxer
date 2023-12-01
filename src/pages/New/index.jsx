@@ -1,4 +1,4 @@
-import { Container, Form, Ingredients } from "./styles";
+import { Container, Form, Ingredients, Description } from "./styles";
 import { IoIosArrowBack } from "react-icons/io";
 
 import Header from "../../components/Header";
@@ -31,7 +31,11 @@ const New = () => {
             </div>
           </Ingredients>
           <Input title="Preço" placeholder="R$ 00,00" type="number" />
-          <Button title="Adicionar pedido" isHighlighted={false} />
+          <Description>
+            <p>Descrição</p>
+            <textarea placeholder="Fale brevemente sobre o prato, seus ingredientes e composição..."></textarea>
+          </Description>
+          <Button title="Adicionar prato" isHighlighted={false} />
         </Form>
       </Wrapper>
       <Footer />
