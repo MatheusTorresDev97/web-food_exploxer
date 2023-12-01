@@ -42,9 +42,7 @@ export const Mobile = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    @media (min-width: 371px) {
-      justify-content: space-between;
-    }
+    justify-content: space-between;
 
     @media (min-width: 780px) {
       display: none;

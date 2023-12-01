@@ -1,8 +1,9 @@
-import { Container, Content } from "./styles";
+import { Container, Form, Ingredients } from "./styles";
 import { IoIosArrowBack } from "react-icons/io";
 
 import Header from "../../components/Header";
 import Wrapper from "../../components/Wrapper";
+import NewIngredient from "../../components/NewIngredient";
 import ButtonText from "../../components/ButtonText";
 import InputImage from "../../components/InputImage";
 import Input from "../../components/Input";
@@ -14,15 +15,24 @@ const New = () => {
     <Container>
       <Header />
       <Wrapper>
-        <Content>
+        <Form>
           <ButtonText title="voltar" icon={IoIosArrowBack} />
           <h1>Adicionar Prato</h1>
           <InputImage />
           <Input title="Nome" placeholder="Ex.: Salada Ceasar" />
           <Input title="Categoria" placeholder="Ex.: Prato Principal" />
-          <Input title="Preço" placeholder="R$ 00,00" />
+          <Ingredients>
+            <p>Ingredientes</p>
+            <div className="new-ingredients">
+              <NewIngredient value="sal" />
+              <NewIngredient value="açúcar" />
+              <NewIngredient value="fermento americano" />
+              <NewIngredient isNew />
+            </div>
+          </Ingredients>
+          <Input title="Preço" placeholder="R$ 00,00" type="number" />
           <Button title="Adicionar pedido" isHighlighted={false} />
-        </Content>
+        </Form>
       </Wrapper>
       <Footer />
     </Container>
