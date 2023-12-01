@@ -2,7 +2,7 @@
 import { useRef } from "react";
 
 import Card from "../Card";
-import Container from "./styles";
+import {Container } from "./styles";
 
 const Carousel = ({ title, meals }) => {
   const carousel = useRef(null);
