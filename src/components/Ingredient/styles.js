@@ -8,4 +8,8 @@ export const Container = styled.div`
     width: 60px;
     height: 60px;
   }
+
+  p {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+  }
 `;
