@@ -5,6 +5,10 @@ width: 100%;
 min-height: 100vh;
 display: flex;
 flex-direction: column;
+
+> .my-wrapper {
+    flex-grow: 1;
+  }
 `;
 
 export const Form = styled.form`

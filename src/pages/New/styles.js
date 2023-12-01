@@ -15,7 +15,7 @@ export const Form = styled.form`
   width: 100%;
   padding: clamp(40px, 12.5vw, 80px) 0;
 
-  @media (min-width: 770px) {
+  @media (min-width: 780px) {
     display: grid;
     grid-template-areas:
       "A A A A"
@@ -71,7 +71,7 @@ export const Ingredients = styled.div`
   margin-bottom: 20px;
   grid-area: F;
 
-  @media (min-width: 800px) {
+  @media (min-width: 780px) {
     margin-bottom: 0px;
   }
 
