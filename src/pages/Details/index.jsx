@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { FiEdit2, FiTrash } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
 import { Container, Content } from "./styles";
 import { useState } from "react";
@@ -45,6 +44,7 @@ const Details = () => {
       image: ingredientImage,
     },
   ]);
+
   return (
     <Container>
       <Header />

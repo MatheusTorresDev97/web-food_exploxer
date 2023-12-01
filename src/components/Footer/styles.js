@@ -34,6 +34,8 @@ export const Container = styled.footer`
   p {
     font-family: "DM Sans", sans-serif;
     text-align: center;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    
     @media (max-width: 545px) {
       flex-grow: 1;
     }
