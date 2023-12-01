@@ -10,7 +10,7 @@ export const Desktop = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
-  @media (max-width: 780px) {
+  @media (max-width: 779px) {
     display: none;
   }
   nav {
