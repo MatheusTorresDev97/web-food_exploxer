@@ -70,7 +70,7 @@ const Details = () => {
               ))}
           </div>
           <p className="price">
-            R$ <span>32,55</span>
+          R$ <span>0032,55</span>
           </p>
           <div className="buttons">
             {adm ? (

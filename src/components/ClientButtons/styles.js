@@ -5,14 +5,15 @@ export const Container = styled.div`
   margin: 0 auto;
   display: flex;
   gap: 25px;
-  > div {
-    width: 100%;
+  @media (min-width: 770px) {
+    margin: 0;
   }
   .amount-buttons {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: clamp(5px, 4vw, 15px);
     font-size: 2rem;
     button {
       border: none;
