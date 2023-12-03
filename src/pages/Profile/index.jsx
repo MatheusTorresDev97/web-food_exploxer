@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { Container, Form } from "./styles";
@@ -18,7 +17,6 @@ const Profile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const navigate = useNavigate();
 
   return (
     <Container>

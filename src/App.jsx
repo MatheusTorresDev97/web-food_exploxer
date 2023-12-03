@@ -3,11 +3,15 @@ import theme from "./styles/theme";
 import GlobalStyles from "./styles/global";
 import Routes from "./routes";
 
+import { AuthProvider } from './hooks/useAuth'
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 };

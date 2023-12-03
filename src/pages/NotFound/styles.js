@@ -19,7 +19,6 @@ export const Container = styled.div`
       line-height: 100%;
       font-weight: 500;
       font-size: 5.5rem;
-      color: ${({ theme }) => theme.COLORS.BLUE_100};
     }
     p {
       margin: 20px 0;
