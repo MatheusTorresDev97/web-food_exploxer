@@ -4,9 +4,9 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     let userInfos = {
-        name: "Gustavo",
-        email: "gustavo@email.com",
-        isAdm: false,
+        name: "Matheus",
+        email: "matheus@email.com",
+        isAdm: true,
     };
 
     userInfos = null;
