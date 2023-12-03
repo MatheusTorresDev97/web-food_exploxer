@@ -13,7 +13,7 @@ import AdmButtons from "../../components/AdmButtons";
 import ClientButtons from "../../components/ClientButtons";
 
 const ingredientImage =
-"https://www.foodbusinessnews.net/ext/resources/TopicLandingPages/Product-Development-Ingredient-Applications.jpg?1519144948";
+  "https://www.foodbusinessnews.net/ext/resources/TopicLandingPages/Product-Development-Ingredient-Applications.jpg?1519144948";
 
 const Details = () => {
   const [adm, setAdm] = useState(false);
@@ -50,7 +50,7 @@ const Details = () => {
       <Header />
       <Wrapper>
         <Content>
-          <ButtonText title="voltar" icon={IoIosArrowBack} />
+          <ButtonText title="voltar" icon={IoIosArrowBack} to="/" />
           <img
             src="https://assets-global.website-files.com/5d03b4e13011831ae4624b37/6354dfed1f4727b5f0191ef0_production-meal-image-e4122aa8-0fe7-4854-b6f5-e27e0c5be918.jpeg"
             alt="Foto do Prato"
@@ -70,7 +70,7 @@ const Details = () => {
               ))}
           </div>
           <p className="price">
-          R$ <span>0032,55</span>
+            R$ <span>0032,55</span>
           </p>
           <div className="buttons">
             {adm ? (

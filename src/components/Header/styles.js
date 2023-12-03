@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.header`
   width: 100%;
@@ -51,10 +52,11 @@ export const Mobile = styled.div`
 `;
 
 
-export const Brand = styled.div`
+export const Brand = styled(Link)`
   display: flex;
   gap: 10px;
   align-items: center;
+  color: ${({ theme }) => theme.COLORS.WHITE};
 
   @media (max-width: 370px) {
     display: none;
