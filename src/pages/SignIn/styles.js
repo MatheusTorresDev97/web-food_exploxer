@@ -22,24 +22,24 @@ export const Container = styled.div`
 export const Brand = styled.div`
   display: none;
   margin-left: 40px;
-@media (min-width: 900px) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-}
+  @media (min-width: 900px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
 `;
 
 export const Form = styled.form`
-     width: 100%;
-     max-width: 540px;
-    min-height: 100vh;
-    margin: auto;
-    padding: 80px clamp(15px, 4vw, 40px);
-    text-align: center;
-    background-color: ${({ theme }) => theme.COLORS.BLUE_700};
+  width: 100%;
+  max-width: 540px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 80px clamp(15px, 4vw, 40px);
+  text-align: center;
+  background-color: ${({ theme }) => theme.COLORS.BLUE_700};
 
-    @media (min-width: 540px) {
+  @media (min-width: 540px) {
     min-height: initial;
     border-radius: 15px;
     margin: 40px auto;
@@ -48,7 +48,7 @@ export const Form = styled.form`
     margin-right: 40px;
   }
 
-    > .top {
+  > .top {
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -58,19 +58,23 @@ export const Form = styled.form`
     }
   }
 
-    img {
+  img {
     width: 35px;
     height: 35px;
   }
-    h1 {
+  h1 {
     font-size: 3rem;
     font-family: "Roboto", sans-serif;
   }
-     h2 {
-      margin-bottom: 40px;
+  h2 {
+    margin-bottom: 40px;
   }
 
   > *:last-child {
     margin-top: 40px;
   }
-`
+
+  > * {
+    font-size: 1.4rem;
+  }
+`;

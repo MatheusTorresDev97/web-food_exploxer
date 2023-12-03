@@ -23,7 +23,7 @@ const SignIn = () => {
           placeholder="No mínimo 6 caracteres"
         />
         <Button title="Entrar" type="button" isHighlighted />
-        <ButtonText title="Criar uma conta" />
+        <ButtonText title="Criar uma conta" to="/register" />
       </Form>
     </Container>
   );

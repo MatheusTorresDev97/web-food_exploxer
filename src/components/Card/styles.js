@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const Container = styled(Link)`
   width: 100%;
   max-width: 300px;
   margin: auto;
   padding: 20px 20px 35px;
   background-color: ${({ theme }) => theme.COLORS.BLUE_900};
+  color: ${({ theme }) => theme.COLORS.WHITE};
   border: 1px solid black;
   border-radius: 10px;
   display: flex;

@@ -3,6 +3,7 @@ import { Container } from "./styles";
 
 const Button = ({
   title,
+  onClick,
   isHighlighted = true,
   icon: Icon,
   type = "button",
@@ -11,6 +12,7 @@ const Button = ({
 }) => {
   return (
     <Container
+      onClick={onClick}
       type={type}
       isHighlighted={isHighlighted}
       disabled={disabled}

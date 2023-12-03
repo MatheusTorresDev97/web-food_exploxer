@@ -33,7 +33,7 @@ const SignUp = () => {
           placeholder="No mínimo 6 caracteres"
         />
         <Button title="Cria conta" type="button" isHighlighted />
-        <ButtonText title="Já tenho uma conta" />
+        <ButtonText title="Já tenho uma conta" to="/login" />
         </Form>
     </Container>
   )

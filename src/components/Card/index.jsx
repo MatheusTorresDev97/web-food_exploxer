@@ -7,11 +7,11 @@ import { Container } from "./styles";
 import ClientButtons from "../ClientButtons";
 import AdmButtons from "../AdmButtons";
 
-const Card = ({meail_id, title, description, price, image }) => {
+const Card = ({meal_id, title, description, price, image }) => {
   const [isAdm, setIsAdm] = useState(false);
 
   return (
-    <Container className="my-card">
+    <Container className="my-card" to={`/details/${meal_id}`}>
     {!isAdm && (
       <button type="button">
         <FiHeart />

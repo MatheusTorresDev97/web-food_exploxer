@@ -73,4 +73,8 @@ export const Form = styled.form`
   > *:last-child {
     margin-top: 40px;
   }
+
+  > * {
+      font-size: 1.4rem;
+    }
 `
