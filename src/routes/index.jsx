@@ -7,7 +7,7 @@ import PublicRoutes from "./PublicRoutes";
 const Routes = () => {
     return (
         <BrowserRouter>
-            <AdmRoutes />
+            <ClientRoutes />
         </BrowserRouter>
     )
 }
