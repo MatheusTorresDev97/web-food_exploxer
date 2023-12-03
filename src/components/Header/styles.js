@@ -1,8 +1,10 @@
 import styled from "styled-components";
+
 import { Link } from "react-router-dom";
 
 export const Container = styled.header`
   width: 100%;
+
   padding: clamp(15px, 4vw, 30px) 0;
   background-color: ${({ theme }) => theme.COLORS.BLUE_700};
 `;
@@ -11,27 +13,35 @@ export const Desktop = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
+
   @media (max-width: 779px) {
     display: none;
   }
+
   nav {
     flex-grow: 1;
+
     ul {
       flex-grow: 1;
       display: flex;
       gap: 20px;
       align-items: center;
     }
+
     li:first-child {
       flex-grow: 1;
     }
+
     li {
       list-style: none;
     }
-    a {
+
+    a,
+    svg {
       display: flex;
       justify-content: center;
       align-items: center;
+
       color: ${({ theme }) => theme.COLORS.WHITE};
       font-size: 2rem;
     }
@@ -51,16 +61,11 @@ export const Mobile = styled.div`
   }
 `;
 
-
 export const Brand = styled(Link)`
   display: flex;
   gap: 10px;
   align-items: center;
   color: ${({ theme }) => theme.COLORS.WHITE};
-
-  @media (max-width: 370px) {
-    display: none;
-  }
 
   img {
     width: clamp(2.3rem, 5vw, 3.5rem);
@@ -72,7 +77,6 @@ export const Brand = styled(Link)`
     font-size: clamp(2rem, 5vw, 2.5rem);
   }
 `;
-
 
 export const HamburgerMenu = styled.button`
   display: flex;
@@ -112,7 +116,8 @@ export const Navigation = styled.nav`
     list-style: none;
   }
 
-  a {
+  a,
+  button {
     display: flex;
     align-items: center;
     gap: 10px;
