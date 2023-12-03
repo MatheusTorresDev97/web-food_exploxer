@@ -6,7 +6,7 @@ export function AuthProvider({ children }) {
     let userInfos = {
         name: "Matheus",
         email: "matheus@email.com",
-        isAdm: false,
+        isAdm: true,
     };
 
     userInfos = null;

@@ -69,9 +69,7 @@ const ShoppingCart = () => {
       if (response) {
         navigate("/login");
       }
-    }
-
-    if (userInfos) {
+    } else {
       alert(
         "Pedido feito com sucesso! Agora aguarde a confirmação do pagamento."
       );
