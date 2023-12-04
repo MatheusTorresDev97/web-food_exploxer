@@ -9,18 +9,25 @@ import AdmButtons from "../AdmButtons";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({meal_id, title, description, price, image }) => {
+const Card = ({ meal_id, title, description, price, image }) => {
   const [isAdm, setIsAdm] = useState(false);
 
   const { userInfos } = useAuth();
 
   const navigate = useNavigate();
 
-  function renderButtons() {
+  function renderManipulationButtons() {
     if (!userInfos || !userInfos.isAdm) {
-      return <ClientButtons />;
+      return (
+        <ClientButtons
+          meal_id={meal_id}
+          title={title}
+          price={price}
+          image={image}
+        />
+      );
     } else {
-      return <AdmButtons />;
+      return <AdmButtons meal_id={meal_id} />;
     }
   }
 
@@ -62,7 +69,7 @@ const Card = ({meal_id, title, description, price, image }) => {
       <h2 onClick={handleGoToDetails}>{`${title} >`}</h2>
       <p>{description}</p>
       <p>R$ {price}</p>
-      {renderButtons()}
+      {renderManipulationButtons()}
     </Container>
   );
 };
