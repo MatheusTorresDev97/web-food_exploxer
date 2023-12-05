@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 import ButtonText from "../../components/ButtonText";
 import Loading from "../../components/Loading";
 import Logo from "../../assets/logo.svg";
-
+import { validateData } from "../../utils/dataValidator";
 import { useRequest } from "../../hooks/useRequest";
 
 const SignUp = () => {
@@ -19,46 +19,15 @@ const SignUp = () => {
   const { manageRequests } = useRequest();
   const navigate = useNavigate();
 
-  function validateEmail() {
-    const requiredAttributes = /\S+@\S+\.\S+/;
-
-    return requiredAttributes.test(email);
-  }
-
-  function validateData() {
-    const missingData = !name || !email || !password;
-
-    if (missingData) {
-      alert("Faltam dados! Verifique e tente novamente.");
-
-      return false;
-    }
-
-    const isAValidEmail = validateEmail();
-
-    if (!isAValidEmail) {
-      alert("E-mail inválido! Verifique e tente novamente.");
-
-      return false;
-    }
-
-    const thePasswordHasTheMinimumLength = password.length >= 6;
-
-    if (!thePasswordHasTheMinimumLength) {
-      alert(
-        "A senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
-      );
-
-      return false;
-    }
-
-    return true;
-  }
-
   async function handleSignUp() {
-    const allDataIsValid = validateData();
+    const allInputIsValid = validateData({
+      name,
+      email,
+      password,
+      isNameRequired: true,
+    });
 
-    if (!allDataIsValid) return;
+    if (!allInputIsValid) return;
 
     setShowLoadingScreen((prevState) => !prevState);
 
