@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { TfiReceipt } from "react-icons/tfi";
 import { FiCreditCard } from "react-icons/fi";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom"
 import { Cart, Container, Content, Payment } from "./styles";
 
 import Footer from "../../components/Footer";
