@@ -7,6 +7,7 @@ import Details from "../pages/Details";
 import ShoppingCart from "../pages/ShoppingCart";
 import AllOrders from "../pages/AllOrders";
 import Order from "../pages/Order";
+import OffAir from "../pages/OffAir";
 import NotFound from "../pages/NotFound";
 
 const ClientRoutes = () => {
@@ -19,6 +20,7 @@ const ClientRoutes = () => {
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/all-orders" element={<AllOrders />} />
             <Route path="/order/:id" element={<Order />} />
+            <Route path="/off-air" element={<OffAir />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     )
