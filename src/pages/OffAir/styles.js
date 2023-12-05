@@ -16,6 +16,7 @@ export const Container = styled.div`
     text-align: center;
     div {
       font-size: clamp(8rem, 20vw, 16rem);
+      font-family: sans-serif;
     }
     h1 {
       font-weight: 500;

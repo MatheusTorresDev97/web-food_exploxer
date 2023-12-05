@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import { useRequest } from "../../hooks/useRequest";
+import { useNavigate } from "react-router-dom";
 import { Container, Desktop, Mobile } from "./styles";
 
 import Header from "../../components/Header";
@@ -14,13 +15,18 @@ import { api } from "../../services/api";
 
 const Home = () => {
   const [meals, setMeals] = useState();
+
   const [categories, setCategories] = useState();
+
+  const navigate = useNavigate();
+
+  const { manageRequests } = useRequest();
 
   function renderCardsDesktop() {
     if (!meals || !categories) return null;
 
-    return categories.map((category) => {
-      const mealsFiltered = meals.filter((meal) => meal.category == category);
+    return categories.map(category => {
+      const mealsFiltered = meals.filter(meal => meal.category == category);
 
       return (
         <Carousel
@@ -35,8 +41,8 @@ const Home = () => {
   function renderCardsMobile() {
     if (!meals || !categories) return null;
 
-    return categories.map((category) => {
-      const mealsFiltered = meals.filter((meal) => meal.category == category);
+    return categories.map(category => {
+      const mealsFiltered = meals.filter(meal => meal.category == category);
 
       return (
         <SectionMeals
@@ -49,7 +55,7 @@ const Home = () => {
   }
 
   function formatMeals(meals) {
-    const mealsFormatted = meals.map((meal) => {
+    const mealsFormatted = meals.map(meal => {
       return {
         ...meal,
         category: meal.category == null ? "Sem categoria" : meal.category,
@@ -63,14 +69,14 @@ const Home = () => {
     function formatCategories() {
       if (!meals) return;
 
-      const onlyCategories = meals.map((meal) => {
+      const onlyCategories = meals.map(meal => {
         return meal.category;
       });
 
       const categoriesUnique = [...new Set(onlyCategories)];
 
       const categoriesFiltered = categoriesUnique.filter(
-        (category) => category !== "Sem categoria"
+        category => category !== "Sem categoria"
       );
 
       const categoriesOrdered = categoriesFiltered.sort();
@@ -85,23 +91,20 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchMeals() {
-      try {
-        const response = await api.get("/meals");
+      const response = await manageRequests("get", "/meals");
 
-        const mealsFormatted = formatMeals(response.data);
-        setMeals(mealsFormatted);
-      } catch (error) {
-        if (error.response) {
-          alert(error.response.data.message);
-        } else {
-          alert("Não foi possível carregar os pratos.");
-          console.log(error);
-        }
+      console.log({ response });
+
+      if (response instanceof Error) {
+        return navigate("/off-air");
       }
+
+      const mealsFormatted = formatMeals(response);
+      setMeals(mealsFormatted);
     }
 
     fetchMeals();
-  }, []);
+  }, [manageRequests, navigate]);
 
   return (
     <Container>
@@ -127,7 +130,7 @@ const Home = () => {
       <Footer />
       {!meals && <Loading />}
     </Container>
-  );
+  )
 };
 
 export default Home;

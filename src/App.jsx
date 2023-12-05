@@ -5,16 +5,19 @@ import Routes from "./routes";
 
 import { AuthProvider } from "./hooks/useAuth";
 import { CartProvider } from "./hooks/useCart";
+import { RequestProvider } from "./hooks/useRequest";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <AuthProvider>
-        <CartProvider>
-          <Routes />
-        </CartProvider>
-      </AuthProvider>
+      <RequestProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Routes />
+          </CartProvider>
+        </AuthProvider>
+      </RequestProvider>
     </ThemeProvider>
   );
 };
