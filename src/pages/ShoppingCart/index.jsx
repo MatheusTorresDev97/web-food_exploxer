@@ -16,38 +16,13 @@ import qrCodeImg from "../../assets/qrcode.svg";
 import pixImg from "../../assets/pix.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
+import { api } from "../../services/api";
 
 const ShoppingCart = () => {
   const navigate = useNavigate()
   const { userInfos } = useAuth();
   const { mealsInCart, handleRemoveMeal } = useCart();
 
-  const [mealsAdd, setMealsAdd] = useState([
-    {
-      id: 1,
-      title: "Pizza",
-      price: 32.59,
-      image:
-        "photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      meal_amount: 2,
-    },
-    {
-      id: 2,
-      title: "Macarrão",
-      price: 32.05,
-      image:
-        "photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      meal_amount: 1,
-    },
-    {
-      id: 5,
-      title: "Macarrão 6",
-      price: 32.05,
-      image:
-        "photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      meal_amount: 3,
-    },
-  ]);
 
   const [cardPayment, setCardPayment] = useState(false);
 
@@ -57,11 +32,6 @@ const ShoppingCart = () => {
     withCard ? setCardPayment(true) : setCardPayment(false);
   }
 
-  // function handleMealAdd(meal_id) {
-  //   const mealsFiltered = mealsAdd.filter(meal => meal.id !== meal_id);
-
-  //   setMealsAdd(mealsFiltered);
-  // }
 
   function handleFinalizePurchase() {
     if (!userInfos) {

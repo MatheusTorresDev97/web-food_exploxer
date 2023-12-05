@@ -6,54 +6,57 @@ import { api } from "../services/api";
 const Request = createContext();
 
 export function RequestProvider({ children }) {
-    async function manageRequests(type, resource) {
-      const availableRequests = {
-        get: new Promise(async (resolve, reject) => {
+  async function manageRequests(type, resource) {
+    const availableRequests = {
+      get: () =>
+        new Promise(async (resolve, reject) => {
           try {
+            console.log("entrou no availableRequests");
             const response = await api.get(resource);
-  
+
             const { data } = response;
-  
+
             resolve(data);
           } catch (error) {
             reject(error);
           }
         }),
-      };
-  
-      // eslint-disable-next-line no-unused-vars
-      const manageResponseTime = new Promise((resolve, reject) => {
+    };
+
+    // eslint-disable-next-line no-unused-vars
+    const manageResponseTime = () =>
+      new Promise((resolve, reject) => {
         const limitTime = 60 * 1000;
-  
+
         setTimeout(() => {
           const maximumTimeExceeded = new Error(
             "Maximum response time has been exceeded!"
           );
-  
+
           resolve(maximumTimeExceeded);
         }, limitTime);
       });
-  
-      const requisitionExecuted = availableRequests[type];
-  
-      if (requisitionExecuted) {
-        const resultOfRequest = await Promise.race([
-          requisitionExecuted,
-          manageResponseTime,
-        ]);
-  
-        return resultOfRequest;
-      }
+
+    const requisitionExecuted = availableRequests[type];
+
+    if (requisitionExecuted) {
+      const resultOfRequest = await Promise.race([
+        requisitionExecuted(),
+        manageResponseTime(),
+      ]);
+
+      return resultOfRequest;
     }
-  
-    return (
-      <Request.Provider value={{ manageRequests }}>{children}</Request.Provider>
-    );
   }
-  
-  // eslint-disable-next-line react-refresh/only-export-components
-  export function useRequest() {
-    const context = useContext(Request);
-  
-    return context;
-  }
+
+  return (
+    <Request.Provider value={{ manageRequests }}>{children}</Request.Provider>
+  );
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useRequest() {
+  const context = useContext(Request);
+
+  return context;
+}
