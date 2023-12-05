@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../services/api";
 
 const AuthContext = createContext();
@@ -15,6 +15,16 @@ export function AuthProvider({ children }) {
     localStorage.setItem("@food_explorer:user", JSON.stringify(user));
     localStorage.setItem("@food_explorer:token", token);
   }
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("@food_explorer:user"));
+    const token = localStorage.getItem("@food_explorer:token");
+
+    if (user && token) {
+      setUserInfos(user);
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ userInfos, authenticateUser }}>

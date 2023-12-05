@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import AdmRoutes from "./AdmRoutes";
@@ -25,9 +24,6 @@ const Routes = () => {
         }
     }
 
-    useEffect(() => {
-        console.log({ userInfos });
-    }, []);
     return (
         <BrowserRouter>
             {renderRoutes()}
