@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-async-promise-executor */
 import { createContext, useContext } from "react";
@@ -26,9 +27,7 @@ export function RequestProvider({ children }) {
             console.log("entrou aqui");
             const response = await api.post(resource, infos);
 
-            const { data } = response;
-
-            resolve(data);
+            resolve(response);
           } catch (error) {
             reject(error);
           }

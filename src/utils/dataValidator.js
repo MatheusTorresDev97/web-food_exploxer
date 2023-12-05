@@ -6,7 +6,7 @@ export function validateEmail(email) {
 
 export function validateData({ name, email, password, isNameRequired = false }) {
     if (!isNameRequired) {
-        name = "name";
+        name = "user";
     }
 
     console.log({ name, email, password });

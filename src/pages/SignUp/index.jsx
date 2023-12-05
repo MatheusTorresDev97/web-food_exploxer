@@ -29,7 +29,7 @@ const SignUp = () => {
 
     if (!allInputIsValid) return;
 
-    setShowLoadingScreen((prevState) => !prevState);
+    setShowLoadingScreen(prevState => !prevState);
 
     const response = await manageRequests("post", "users", {
       name,
@@ -37,19 +37,27 @@ const SignUp = () => {
       password,
     });
 
-    setShowLoadingScreen((prevState) => !prevState);
+    setShowLoadingScreen(prevState => !prevState);
 
     if (response instanceof Error) {
       return navigate("/off-air");
     }
 
-    const hasAnyError = response.status == 400;
+    console.log({ response });
 
-    if (hasAnyError) {
-      return alert(response.message);
+    const theResultWasASuccess = response.status === 201;
+
+    if (!theResultWasASuccess) {
+      if (response.data) {
+        alert(response.data.message);
+      } else {
+        alert("Não foi possível logar. Por favor tente novamente mais tarde.");
+      }
+
+      return;
     }
 
-    alert("Usuário cadastrado com sucesso! Agora você pode se logar");
+    alert("Usuário cadastrado com sucesso! Agora você pode se logar.");
     navigate("/login");
   }
 
@@ -57,7 +65,7 @@ const SignUp = () => {
     <Container>
       <Brand>
         <img src={Logo} alt=" Logo do food explorer" />
-        <h1>Food Explorer</h1>
+        <h1>food explorer</h1>
       </Brand>
       <Form>
         <div className="top">
@@ -70,21 +78,21 @@ const SignUp = () => {
           type="text"
           placeholder="Exemplo: Maria da Silva"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
         />
         <Input
           title="E-mail:"
           type="text"
           placeholder="exemplo@exemplo.com.br"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         <Input
           title="Senha:"
           type="password"
           placeholder="No mínimo 6 caracteres"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         <Button
           title="Criar conta"
@@ -97,6 +105,6 @@ const SignUp = () => {
       {showLoadingScreen && <Loading />}
     </Container>
   );
-};
+}
 
 export default SignUp;
