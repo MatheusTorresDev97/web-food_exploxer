@@ -42,6 +42,16 @@ const SignUp = () => {
       return false;
     }
 
+    const thePasswordHasTheMinimumLength = password.length >= 6;
+
+    if (!thePasswordHasTheMinimumLength) {
+      alert(
+        "A senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
+      );
+
+      return false;
+    }
+
     return true;
   }
 
@@ -50,7 +60,7 @@ const SignUp = () => {
 
     if (!allDataIsValid) return;
 
-    setShowLoadingScreen(prevState => !prevState);
+    setShowLoadingScreen((prevState) => !prevState);
 
     const response = await manageRequests("post", "users", {
       name,
@@ -58,7 +68,7 @@ const SignUp = () => {
       password,
     });
 
-    setShowLoadingScreen(prevState => !prevState);
+    setShowLoadingScreen((prevState) => !prevState);
 
     if (response instanceof Error) {
       return navigate("/off-air");
