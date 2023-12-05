@@ -6,12 +6,11 @@ import { api } from "../services/api";
 const Request = createContext();
 
 export function RequestProvider({ children }) {
-  async function manageRequests(type, resource) {
+  async function manageRequests(type, resource, infos = null) {
     const availableRequests = {
       get: () =>
         new Promise(async (resolve, reject) => {
           try {
-            console.log("entrou no availableRequests");
             const response = await api.get(resource);
 
             const { data } = response;
@@ -21,7 +20,21 @@ export function RequestProvider({ children }) {
             reject(error);
           }
         }),
+      post: () =>
+        new Promise(async (resolve, reject) => {
+          try {
+            console.log("entrou aqui");
+            const response = await api.post(resource, infos);
+
+            const { data } = response;
+
+            resolve(data);
+          } catch (error) {
+            reject(error);
+          }
+        }),
     };
+
 
     // eslint-disable-next-line no-unused-vars
     const manageResponseTime = () =>
