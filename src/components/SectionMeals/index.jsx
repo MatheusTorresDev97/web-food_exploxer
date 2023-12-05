@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 
@@ -6,7 +7,7 @@ import { Container } from "./styles";
 import  Button  from "../Button";
 import  Card  from "../Card";
 
-const SectionMeals = ({ title, meals }) => {
+export function SectionMeals({ title, meals }) {
   const [showAllCards, setShowAllCards] = useState(false);
 
   const [heightOfFewCards, setHeightOfFewCards] = useState(0);
@@ -32,7 +33,7 @@ const SectionMeals = ({ title, meals }) => {
   function getTheHeightOfSomeCards() {
     const size = getTheHeightOfACard();
 
-    const visibleCards = 3;
+    const visibleCards = meals.length >= 3 ? 3 : meals.length;
 
     let totalHeight = 0;
 
@@ -48,7 +49,6 @@ const SectionMeals = ({ title, meals }) => {
 
     let totalHeight = 0;
 
-    // eslint-disable-next-line no-unused-vars
     meals.forEach(meal => (totalHeight += size));
 
     return totalHeight;
@@ -59,6 +59,16 @@ const SectionMeals = ({ title, meals }) => {
       setShowAllCards(prevState => !prevState);
     } else {
       setShowAllCards(prevState => !prevState);
+    }
+  }
+
+  function renderButtons() {
+    if (meals.length < 3) return null;
+
+    if (showAllCards) {
+      return <Button title="Mostrar menos" onClick={handleVisibleCards} />;
+    } else {
+      return <Button title="Mostrar mais" onClick={handleVisibleCards} />;
     }
   }
 
@@ -96,14 +106,14 @@ const SectionMeals = ({ title, meals }) => {
           );
         })}
       </div>
-      {showAllCards ? (
+      {/* {showAllCards ? (
         <Button title="Mostrar menos" onClick={handleVisibleCards} />
       ) : (
         <Button title="Mostrar mais" onClick={handleVisibleCards} />
-      )}
+      )} */}
+      {renderButtons()}
     </Container>
   );
 }
-
 
 export default SectionMeals

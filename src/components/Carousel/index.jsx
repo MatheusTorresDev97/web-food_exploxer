@@ -21,8 +21,12 @@ const Carousel = ({ title, meals }) => {
     <Container>
       <h2>{title}</h2>
       <div className="carousel-window">
-        <button onClick={handleCarouselLeft}>{"<"}</button>
-        <button onClick={handleCarouselRight}>{">"}</button>
+      {meals.length > 2 && (
+          <>
+            <button onClick={handleCarouselLeft}>{"<"}</button>
+            <button onClick={handleCarouselRight}>{">"}</button>
+          </>
+        )}
         <div className="carousel-meals" ref={carousel}>
           {meals.map((meal) => {
             const { id, title, description, image, price } = meal;
