@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
@@ -7,15 +6,12 @@ export const Container = styled.div`
   margin: 0 auto 25px;
   padding: 20px 20px 35px;
   background-color: ${({ theme }) => theme.COLORS.BLUE_900};
-  color: ${({ theme }) => theme.COLORS.WHITE};
   border: 1px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-
-  margin-bottom: 25px;
 
   > button:first-child {
     color: ${({ theme }) => theme.COLORS.WHITE};
@@ -41,6 +37,7 @@ export const Container = styled.div`
 
   p:nth-of-type(1) {
     font-size: 1.4rem;
+    text-align: center;
   }
 
   p:nth-of-type(2) {

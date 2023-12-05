@@ -39,18 +39,20 @@ export const Content = styled.main`
     font-size: 2.4rem;
     grid-area: A;
     justify-self: flex-start;
-    @media (min-width: 770px) {
+    @media (min-width: 780px) {
       margin-bottom: 30px;
     }
   }
 
   > img {
-    width: 100%;
+    width: 75%;
+    margin: auto;
     border-radius: 50%;
     aspect-ratio: 1;
     grid-area: B;
     @media (min-width: 780px) {
       width: 90%;
+      margin: 0;
     }
   }
 
