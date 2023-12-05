@@ -29,7 +29,7 @@ import { TfiReceipt } from "react-icons/tfi";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { userInfos } = useAuth();
+  const { userInfos, deauthenticateUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -61,9 +61,9 @@ const Header = () => {
             </button>
           </li>
           <li>
-            <Link to="/login">
+            <button onClick={handleSignInSignOut}>
               <FiLogOut />
-            </Link>
+            </button>
           </li>
         </ul>
       );
@@ -132,10 +132,10 @@ const Header = () => {
             </button>
           </li>
           <li>
-            <Link to="/login">
+          <button onClick={handleSignInSignOut}>
               <FiLogOut />
               {userInfos ? "Sair" : "Entrar"}
-            </Link>
+              </button>
           </li>
         </ul>
       );
@@ -194,7 +194,17 @@ const Header = () => {
   }
 
   function handleMenuOpen() {
-    setMenuOpen(prevState => !prevState);
+    setMenuOpen((prevState) => !prevState);
+  }
+
+  function handleSignInSignOut() {
+    if (userInfos) {
+      navigate("/");
+
+      deauthenticateUser();
+    } else {
+      navigate("/login");
+    }
   }
 
   return (
