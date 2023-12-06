@@ -26,14 +26,21 @@ export function RequestProvider({ children }) {
           try {
             console.log("entrou aqui");
             const response = await api.post(resource, infos);
-
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        }),
+      put: () =>
+        new Promise(async (resolve, reject) => {
+          try {
+            const response = await api.put(resource, infos);
             resolve(response);
           } catch (error) {
             reject(error);
           }
         }),
     };
-
 
     // eslint-disable-next-line no-unused-vars
     const manageResponseTime = () =>
