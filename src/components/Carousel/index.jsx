@@ -29,7 +29,7 @@ const Carousel = ({ title, meals }) => {
         )}
         <div className="carousel-meals" ref={carousel}>
           {meals.map((meal) => {
-            const { id, title, description, image, price } = meal;
+            const { id, title, description, image, price, favorite  } = meal;
 
             return (
               <Card
@@ -39,6 +39,7 @@ const Carousel = ({ title, meals }) => {
                 description={description}
                 image={image}
                 price={price}
+                isFav={favorite}
               />
             );
           })}

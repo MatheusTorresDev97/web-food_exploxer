@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRequest } from "../../hooks/useRequest";
+import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { Container, Desktop, Mobile } from "./styles";
 
@@ -11,7 +12,7 @@ import Carousel from "../../components/Carousel";
 import Loading from "../../components/Loading";
 
 import Food from "../../assets/food.png";
-import { api } from "../../services/api";
+
 
 const Home = () => {
   const [meals, setMeals] = useState();
@@ -21,6 +22,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const { manageRequests } = useRequest();
+
+  const { userInfos } = useAuth();
 
   function renderCardsDesktop() {
     if (!meals || !categories) return null;
@@ -54,15 +57,26 @@ const Home = () => {
     });
   }
 
-  function formatMeals(meals) {
-    const mealsFormatted = meals.map(meal => {
+  function formatMeals({ meals, favorites }) {
+    const mealsWithCategory = meals.map(meal => {
       return {
         ...meal,
         category: meal.category == null ? "Sem categoria" : meal.category,
       };
     });
 
-    return mealsFormatted;
+    const mealsWithFavorites = mealsWithCategory.map(meal => {
+      const isThisMealInFavorites = favorites.find(
+        favorite => meal.id === favorite.id
+      );
+
+      return {
+        ...meal,
+        favorite: isThisMealInFavorites ? true : false,
+      };
+    });
+
+    return mealsWithFavorites;
   }
 
   useEffect(() => {
@@ -99,18 +113,24 @@ const Home = () => {
     async function fetchMeals() {
       const response = await manageRequests("get", "/meals");
 
-      console.log({ response });
-
       if (response instanceof Error) {
         return navigate("/off-air");
       }
 
-      const mealsFormatted = formatMeals(response);
+      let favorites;
+
+      if (userInfos) {
+        favorites = await manageRequests("get", "/favorites");
+      } else {
+        favorites = [];
+      }
+
+      const mealsFormatted = formatMeals({ meals: response, favorites });
       setMeals(mealsFormatted);
     }
 
     fetchMeals();
-  }, [manageRequests, navigate]);
+  }, [manageRequests, navigate, userInfos]);
 
   return (
     <Container>

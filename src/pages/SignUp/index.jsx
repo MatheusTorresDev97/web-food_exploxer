@@ -42,7 +42,6 @@ const SignUp = () => {
       return navigate("/off-air");
     }
 
-    console.log({ response });
 
     const theResultWasASuccess = response.status === 201;
 

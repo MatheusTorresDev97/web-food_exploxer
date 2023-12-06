@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
@@ -78,7 +79,7 @@ export function SectionMeals({ title, meals }) {
 
     setHeightOfFewCards(fewCards);
     setHeightOfAllCards(allCards);
-  }, [getTheHeightOfAllCards, getTheHeightOfSomeCards]);
+  }, []);
 
   return (
     <Container
@@ -92,7 +93,7 @@ export function SectionMeals({ title, meals }) {
         ref={mealsContainer}
       >
         {meals.map(meal => {
-          const { id, title, description, image, price } = meal;
+          const { id, title, description, image, price, favorite } = meal;
 
           return (
             <Card
@@ -102,15 +103,11 @@ export function SectionMeals({ title, meals }) {
               description={description}
               image={image}
               price={price}
+              isFav={favorite}
             />
           );
         })}
       </div>
-      {/* {showAllCards ? (
-        <Button title="Mostrar menos" onClick={handleVisibleCards} />
-      ) : (
-        <Button title="Mostrar mais" onClick={handleVisibleCards} />
-      )} */}
       {renderButtons()}
     </Container>
   );
