@@ -65,6 +65,11 @@ export function CartProvider({ children }) {
           JSON.stringify(mealsInCardFiltered)
         );
       }
+
+      function emptyTheCart() {
+        setMealsInCart([]);
+        localStorage.removeItem("@food_explorer-meals");
+      }
     
       useEffect(() => {
         const mealsInMemory = JSON.parse(
@@ -80,7 +85,7 @@ export function CartProvider({ children }) {
 
       return (
         <CartContext.Provider
-          value={{ mealsInCart, handleAddMeal, handleRemoveMeal }}
+          value={{ mealsInCart, handleAddMeal, handleRemoveMeal, emptyTheCart }}
         >
           {children}
         </CartContext.Provider>
