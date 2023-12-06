@@ -13,7 +13,6 @@ import Loading from "../../components/Loading";
 
 import Food from "../../assets/food.png";
 
-
 const Home = () => {
   const [meals, setMeals] = useState();
 
@@ -28,8 +27,8 @@ const Home = () => {
   function renderCardsDesktop() {
     if (!meals || !categories) return null;
 
-    return categories.map(category => {
-      const mealsFiltered = meals.filter(meal => meal.category == category);
+    return categories.map((category) => {
+      const mealsFiltered = meals.filter((meal) => meal.category == category);
 
       return (
         <Carousel
@@ -44,8 +43,8 @@ const Home = () => {
   function renderCardsMobile() {
     if (!meals || !categories) return null;
 
-    return categories.map(category => {
-      const mealsFiltered = meals.filter(meal => meal.category == category);
+    return categories.map((category) => {
+      const mealsFiltered = meals.filter((meal) => meal.category == category);
 
       return (
         <SectionMeals
@@ -58,16 +57,17 @@ const Home = () => {
   }
 
   function formatMeals({ meals, favorites }) {
-    const mealsWithCategory = meals.map(meal => {
+    if (!meals || !favorites) return;
+    const mealsWithCategory = meals.map((meal) => {
       return {
         ...meal,
         category: meal.category == null ? "Sem categoria" : meal.category,
       };
     });
 
-    const mealsWithFavorites = mealsWithCategory.map(meal => {
+    const mealsWithFavorites = mealsWithCategory.map((meal) => {
       const isThisMealInFavorites = favorites.find(
-        favorite => meal.id === favorite.id
+        (favorite) => meal.id === favorite.id
       );
 
       return {
@@ -83,7 +83,7 @@ const Home = () => {
     function formatCategories() {
       if (!meals) return;
 
-      const onlyCategories = meals.map(meal => {
+      const onlyCategories = meals.map((meal) => {
         return meal.category;
       });
 
@@ -92,12 +92,12 @@ const Home = () => {
       const categoriesOrdered = categoriesUnique.sort();
 
       const someUncategorized = categoriesOrdered.find(
-        category => category == "Sem categoria"
+        (category) => category == "Sem categoria"
       );
 
       const categoriesFiltered =
         someUncategorized &&
-        categoriesUnique.filter(category => category !== "Sem categoria");
+        categoriesUnique.filter((category) => category !== "Sem categoria");
 
       const categoriesFormatted = someUncategorized
         ? [...categoriesFiltered, "Sem categoria"]
@@ -111,22 +111,31 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchMeals() {
-      const response = await manageRequests("get", "/meals");
+      const mealsResponse = await manageRequests("get", "/meals");
 
-      if (response instanceof Error) {
+      if (mealsResponse instanceof Error) {
         return navigate("/off-air");
       }
 
-      let favorites;
+      let favoritesResponse;
 
       if (userInfos) {
-        favorites = await manageRequests("get", "/favorites");
+        favoritesResponse = await manageRequests("get", "/favorites");
       } else {
-        favorites = [];
+        favoritesResponse = [];
       }
 
-      const mealsFormatted = formatMeals({ meals: response, favorites });
-      setMeals(mealsFormatted);
+      const allOfRequestsWasSuccessful =
+        Array.isArray(mealsResponse.data) &&
+        Array.isArray(favoritesResponse.data);
+
+      if (allOfRequestsWasSuccessful) {
+        const mealsFormatted = formatMeals({
+          meals: mealsResponse.data,
+          favorites: favoritesResponse.data,
+        });
+        setMeals(mealsFormatted);
+      }
     }
 
     fetchMeals();
@@ -159,7 +168,7 @@ const Home = () => {
       )}
       <Footer />
     </Container>
-  )
+  );
 };
 
 export default Home;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import useNavigate from "react-router-dom"
 import { Container, Content } from "./styles";
 
 import Footer from "../../components/Footer";
@@ -10,9 +10,9 @@ import Card from "../../components/Card";
 import { useRequest } from "../../hooks/useRequest";
 
 const Favorites = () => {
+  const navigate = useNavigate()
   const [favorites, setFavorites] = useState();
 
-  console.log({ favorites });
 
   const { manageRequests } = useRequest();
 
@@ -20,11 +20,29 @@ const Favorites = () => {
     async function fetchFavorites() {
       const response = await manageRequests("get", "/favorites");
 
-      setFavorites(response);
+      if (response instanceof Error) {
+        return navigate("/");
+      }
+
+      const theRequestWasSuccessful = Array.isArray(response.data);
+
+      if (theRequestWasSuccessful) {
+        return setFavorites(response.data);
+      }
+
+      if (response.data) {
+        alert(response.data.message);
+      } else {
+        alert(
+          "Não foi possível carregar as informações! Por favor tente novamente mais tarde."
+        );
+      }
+
+      return navigate("/");
     }
 
     fetchFavorites();
-  }, [manageRequests]);
+  }, [manageRequests, navigate]);
   return (
     <Container>
       <Header />

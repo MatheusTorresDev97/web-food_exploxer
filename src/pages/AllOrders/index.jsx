@@ -14,7 +14,6 @@ import { useRequest } from "../../hooks/useRequest";
 const Allorders = () => {
   const [orders, setOrders] = useState();
 
-  console.log({ orders });
 
   const [isAdm, setIsAdm] = useState(false);
 
@@ -38,11 +37,9 @@ const Allorders = () => {
     async function fetchOrders() {
       const response = await manageRequests("get", "/orders");
 
-      console.log({ response });
 
       const theRequestWasSuccessful = Array.isArray(response.data);
 
-      console.log({ theRequestWasSuccessful });
 
       if (theRequestWasSuccessful) {
         setOrders(response.data);
