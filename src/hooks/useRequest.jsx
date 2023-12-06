@@ -14,9 +14,7 @@ export function RequestProvider({ children }) {
           try {
             const response = await api.get(resource);
 
-            const { data } = response;
-
-            resolve(data);
+            resolve(response);
           } catch (error) {
             reject(error);
           }
