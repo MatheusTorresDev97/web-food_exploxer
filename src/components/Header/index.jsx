@@ -132,10 +132,10 @@ const Header = () => {
             </button>
           </li>
           <li>
-          <button onClick={handleSignInSignOut}>
+            <button onClick={handleSignInSignOut}>
               <FiLogOut />
               {userInfos ? "Sair" : "Entrar"}
-              </button>
+            </button>
           </li>
         </ul>
       );
@@ -199,9 +199,13 @@ const Header = () => {
 
   function handleSignInSignOut() {
     if (userInfos) {
-      navigate("/");
+      const confirmation = confirm("Tem certeza que deseja sair?");
 
-      deauthenticateUser();
+      if (confirmation) {
+        navigate("/");
+
+        deauthenticateUser();
+      }
     } else {
       navigate("/login");
     }
