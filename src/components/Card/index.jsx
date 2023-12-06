@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
 import { Container } from "./styles";
 
@@ -8,14 +9,18 @@ import ClientButtons from "../ClientButtons";
 import AdmButtons from "../AdmButtons";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api"
+import { api } from "../../services/api";
+import { useRequest } from "../../hooks/useRequest";
 
-const Card = ({ meal_id, title, description, price, image }) => {
+const Card = ({ meal_id, title, description, price, image, isFav }) => {
   const [isAdm, setIsAdm] = useState(false);
+  const [favoriteMeal, setFavoriteMeal] = useState(isFav);
 
   const { userInfos } = useAuth();
 
   const navigate = useNavigate();
+
+  const { manageRequests } = useRequest();
 
   function renderManipulationButtons() {
     if (!userInfos || !userInfos.isAdm) {
@@ -36,13 +41,13 @@ const Card = ({ meal_id, title, description, price, image }) => {
     if (!userInfos || !userInfos.isAdm) {
       return (
         <button type="button" onClick={handleAddToFavorite}>
-          <FiHeart />
+          {favoriteMeal ? <FaHeart /> : <FiHeart />}
         </button>
       );
     }
   }
 
-  function handleAddToFavorite() {
+  async function handleAddToFavorite() {
     if (!userInfos) {
       const response = confirm(`
         Para utilizar esse recurso você precisa estar logado.
@@ -52,6 +57,18 @@ const Card = ({ meal_id, title, description, price, image }) => {
       if (response) {
         navigate("/login");
       }
+
+      return;
+    }
+
+    setFavoriteMeal((prevState) => !prevState);
+
+    let response;
+
+    if (favoriteMeal) {
+      response = await manageRequests("delete", `/favorites/${meal_id}`);
+    } else {
+      response = await manageRequests("post", `/favorites/${meal_id}`);
     }
   }
 

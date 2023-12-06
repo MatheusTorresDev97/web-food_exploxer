@@ -35,6 +35,16 @@ export function RequestProvider({ children }) {
         new Promise(async (resolve, reject) => {
           try {
             const response = await api.put(resource, infos);
+
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        }),
+      delete: () =>
+        new Promise(async (resolve, reject) => {
+          try {
+            const response = await api.delete(resource);
             resolve(response);
           } catch (error) {
             reject(error);
