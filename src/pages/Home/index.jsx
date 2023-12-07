@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useRequest } from "../../hooks/useRequest";
 import { useSearch } from "../../hooks/useSearch";
@@ -59,28 +60,55 @@ const Home = () => {
     });
   }
 
-  function formatMeals({ meals, favorites }) {
-    if (!meals || !favorites) return;
+  function ensureTheMealHasACategory(meals) {
+    if (!meals) return;
 
-    const mealsWithCategory = meals.map(meal => {
-      return {
-        ...meal,
-        category: meal.category == null ? "Sem categoria" : meal.category,
-      };
-    });
+    const mealsWithCategory = meals.map(meal => ({
+      ...meal,
+      category: meal.category == null ? "Sem categoria" : meal.category,
+    }));
 
-    const mealsWithFavorites = mealsWithCategory.map(meal => {
-      const isThisMealInFavorites = favorites.find(
-        favorite => meal.id === favorite.id
-      );
+    return mealsWithCategory;
+  }
 
-      return {
-        ...meal,
-        favorite: isThisMealInFavorites ? true : false,
-      };
+  async function fetchFavorites() {
+    const favoritesResponse = await manageRequests("get", "/favorites");
+
+    return favoritesResponse.data;
+  }
+
+  function checkIfThisMealIsAFavorite(favorites, meal) {
+    const isAFavorite = favorites.find(favorite => favorite.id === meal.id);
+
+    return isAFavorite ? true : false;
+  }
+
+  async function tagFavoriteMeals(meals) {
+    if (!userInfos) return meals;
+
+    const favorites = (await fetchFavorites()) || [];
+
+    const mealsWithFavorites = meals.map(meal => {
+      return { ...meal, favorite: checkIfThisMealIsAFavorite(favorites, meal) };
     });
 
     return mealsWithFavorites;
+  }
+
+  async function fetchMeals() {
+    const mealsResponse = await manageRequests("get", `/meals?title=${search}`);
+
+    return mealsResponse;
+  }
+
+  function validateIfTheResponseWasSuccessful(response) {
+    const wasThereSomeError = !Array.isArray(response.data);
+
+    if (wasThereSomeError) {
+      return navigate("/off-air");
+    }
+
+    return response.data;
   }
 
   useEffect(() => {
@@ -114,47 +142,29 @@ const Home = () => {
   }, [meals]);
 
   useEffect(() => {
-    async function fetchMeals() {
-      const mealsResponse = await manageRequests(
-        "get",
-        `/meals?title=${search}`
-      );
+    async function loadMeals() {
+      const mealsResponse = await fetchMeals();
 
-      if (mealsResponse instanceof Error) {
-        return navigate("/off-air");
-      }
+      const verifiedMeals = validateIfTheResponseWasSuccessful(mealsResponse);
 
-      let favoritesResponse;
+      const mealsWithCategory = ensureTheMealHasACategory(verifiedMeals);
+      const mealWithFavorites = await tagFavoriteMeals(mealsWithCategory);
 
-      if (userInfos) {
-        favoritesResponse = await manageRequests("get", "/favorites");
-      } else {
-        favoritesResponse = [];
-      }
-
-      const allOfRequestsWasSuccessful =
-        Array.isArray(mealsResponse.data) &&
-        Array.isArray(favoritesResponse.data);
-
-      if (allOfRequestsWasSuccessful) {
-        const mealsFormatted = formatMeals({
-          meals: mealsResponse.data,
-          favorites: favoritesResponse.data,
-        });
-        setMeals(mealsFormatted);
-      }
+      setMeals(mealWithFavorites);
     }
 
-    fetchMeals();
-  }, [manageRequests, navigate, search, userInfos]);
+    loadMeals();
+  }, [fetchMeals, search, tagFavoriteMeals, validateIfTheResponseWasSuccessful]);
 
   useEffect(() => {
     function loadTheSearch() {
-      setSearch(title);
+      if (title || title === "") {
+        setSearch(title);
+      }
     }
 
     loadTheSearch();
-  }, [setSearch, title]);
+  }, []);
 
   return (
     <Container>
