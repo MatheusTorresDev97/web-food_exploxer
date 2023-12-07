@@ -40,10 +40,11 @@ const Header = () => {
       return (
         <ul>
           <li>
-          <SearchBar
+            <SearchBar
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
+              onKeyPress={activateSearchByEnter}
             />
           </li>
           <li>
@@ -79,7 +80,12 @@ const Header = () => {
       return (
         <ul>
           <li>
-            <SearchBar />
+            <SearchBar
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onClick={handleSearchByTitle}
+              onKeyPress={activateSearchByEnter}
+            />
           </li>
           <li>
             <Link to="/new">
@@ -219,6 +225,12 @@ const Header = () => {
 
   function handleSearchByTitle() {
     navigate(`/?title=${search}`);
+  }
+
+  function activateSearchByEnter(e) {
+    if (e.key === "Enter") {
+      handleSearchByTitle();
+    }
   }
 
   return (

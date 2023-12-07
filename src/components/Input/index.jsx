@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Container } from "./styles";
 
-const Input = ({ title, type, placeholder, value, onChange, ...props }) => {
+const Input = ({ title, type, placeholder, value, onChange, onKeyPress, ...props }) => {
   return (
     <Container className="my-input">
       <p>{title}</p>
@@ -11,6 +12,7 @@ const Input = ({ title, type, placeholder, value, onChange, ...props }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onKeyPress
         {...props}
       />
     </Container>
