@@ -42,7 +42,7 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -82,7 +82,7 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -206,18 +206,24 @@ const Header = () => {
   }
 
   function handleMenuOpen() {
-    setMenuOpen((prevState) => !prevState);
+    setMenuOpen(prevState => !prevState);
+  }
+
+  function logOutTheUser() {
+    const confirmation = confirm("Tem certeza que deseja sair?");
+
+    if (confirmation) {
+      navigate("/");
+
+      deauthenticateUser();
+
+      return window.location.reload();
+    }
   }
 
   function handleSignInSignOut() {
     if (userInfos) {
-      const confirmation = confirm("Tem certeza que deseja sair?");
-
-      if (confirmation) {
-        navigate("/");
-
-        deauthenticateUser();
-      }
+      logOutTheUser();
     } else {
       navigate("/login");
     }

@@ -12,7 +12,7 @@ const Input = ({ title, type, placeholder, value, onChange, onKeyPress, ...props
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onKeyPress
+        onKeyPress={onKeyPress}
         {...props}
       />
     </Container>

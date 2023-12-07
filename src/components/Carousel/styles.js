@@ -52,6 +52,7 @@ export const Container = styled.section`
 
     .my-card:last-child {
       margin-right: 40px;
+      margin-right: 60px;
     }
   }
 `;
