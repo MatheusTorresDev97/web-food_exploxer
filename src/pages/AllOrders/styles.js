@@ -19,6 +19,10 @@ export const Content = styled.main`
     font-weight: 500;
     margin-bottom: clamp(20px, 6vw, 35px);
   }
+
+  > p {
+    text-align: center;
+  }
 `;
 
 export const Table = styled.div`
@@ -72,4 +76,6 @@ export const Table = styled.div`
   a {
     color: ${({ theme }) => theme.COLORS.WHITE};
   }
+
+  
 `;

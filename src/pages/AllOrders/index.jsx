@@ -14,6 +14,7 @@ import { useRequest } from "../../hooks/useRequest";
 const Allorders = () => {
   const [orders, setOrders] = useState();
 
+  console.log({ orders });
 
   const [isAdm, setIsAdm] = useState(false);
 
@@ -37,9 +38,7 @@ const Allorders = () => {
     async function fetchOrders() {
       const response = await manageRequests("get", "/orders");
 
-
       const theRequestWasSuccessful = Array.isArray(response.data);
-
 
       if (theRequestWasSuccessful) {
         setOrders(response.data);
@@ -64,11 +63,11 @@ const Allorders = () => {
     <Container>
       <Header />
       <Wrapper>
-        {!orders ? (
-          <Loading />
-        ) : (
-          <Content>
-            <h1>Pedidos</h1>
+        <Content>
+          <h1>Pedidos</h1>
+          {orders.length == 0 ? (
+            <p>Você ainda não possui nenhum pedido.</p>
+          ) : (
             <Table>
               <table>
                 <thead>
@@ -80,7 +79,7 @@ const Allorders = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order) => {
+                  {orders.map(order => {
                     const { id, status, meals, created_at } = order;
 
                     return (
@@ -118,9 +117,10 @@ const Allorders = () => {
                 </tbody>
               </table>
             </Table>
-          </Content>
-        )}
+          )}
+        </Content>
       </Wrapper>
+      {!orders && <Loading />}
       <Footer />
     </Container>
   );
