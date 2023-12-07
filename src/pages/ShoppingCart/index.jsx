@@ -26,11 +26,58 @@ const ShoppingCart = () => {
   const { manageRequests } = useRequest();
 
   const [cardPayment, setCardPayment] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiringDate, setCardExpiringDate] = useState("");
+  const [cardSecurityCode, setCardSecurityCode] = useState("");
 
   const [totalPrice, setTotalPrice] = useState(0);
 
   function handlePaymentOption(withCard) {
     withCard ? setCardPayment(true) : setCardPayment(false);
+  }
+
+  function validateIfAInputIsEmpty() {
+    const isAnyInputEmpty =
+      !cardNumber || !cardExpiringDate || !cardSecurityCode;
+
+    return isAnyInputEmpty ? true : false;
+  }
+
+  function warnAboutEmptyInputs(haveAnyEmpty) {
+    if (haveAnyEmpty) {
+      alert(
+        "Para realizar o pagamento por cartão, é necessário preencher todos os campos! Verifique e tente novamente."
+      );
+    }
+  }
+
+  function validateThatTheSizeOfTheInputsIsRight() {
+    const allIsCorrect =
+      cardNumber.length === 16 &&
+      cardExpiringDate.length === 4 &&
+      cardSecurityCode.length === 3;
+
+    return allIsCorrect;
+  }
+
+  function alertAboutTheWrongAmountOfNumber(allNumbersAreRight) {
+    if (!allNumbersAreRight) {
+      alert(
+        "Parece que alguns números do cartão foram preenchidos incorretamente! Verifique e tente novamente."
+      );
+    }
+  }
+
+  function validateCreditCardFields() {
+    const isAnyInputEmpty = validateIfAInputIsEmpty();
+    warnAboutEmptyInputs(isAnyInputEmpty);
+
+    const allNumbersAreCorrect = validateThatTheSizeOfTheInputsIsRight();
+    alertAboutTheWrongAmountOfNumber(allNumbersAreCorrect);
+
+    const passedAllValidations = !isAnyInputEmpty && allNumbersAreCorrect;
+
+    return passedAllValidations;
   }
 
   async function handleFinalizePurchase() {
@@ -46,6 +93,15 @@ const ShoppingCart = () => {
 
       return;
     }
+
+    let validationOfPaymentFields = true;
+
+    if (cardPayment) {
+      validationOfPaymentFields = validateCreditCardFields();
+    }
+
+    if (!validationOfPaymentFields) return;
+
 
     const reduceMeals = mealsInCart.map((meal) => {
       return {
@@ -152,14 +208,24 @@ const ShoppingCart = () => {
                         title="Número do Cartão"
                         placeholder="0000 0000 0000 0000"
                         type="number"
+                        value={cardNumber}
+                        onChange={e => setCardNumber(e.target.value)}
                       />
                       <div className="card-details">
                         <Input
                           title="Validade"
                           placeholder="04/25"
                           type="text"
+                          value={cardExpiringDate}
+                          onChange={e => setCardExpiringDate(e.target.value)}
                         />
-                        <Input title="CVC" placeholder="000" type="number" />
+                        <Input
+                          title="CVC"
+                          placeholder="000"
+                          type="number"
+                          value={cardSecurityCode}
+                          onChange={e => setCardSecurityCode(e.target.value)}
+                        />
                       </div>
                     </form>
                     <Button
