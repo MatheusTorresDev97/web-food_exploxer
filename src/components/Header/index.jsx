@@ -14,6 +14,7 @@ import SearchBar from "../SearchBar";
 import Logo from "../../assets/logo.svg";
 
 import { useAuth } from "../../hooks/useAuth";
+import { useSearch } from "../../hooks/useSearch";
 
 import {
   FiMenu,
@@ -30,6 +31,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { userInfos, deauthenticateUser } = useAuth();
+  const { search, setSearch } = useSearch();
 
   const navigate = useNavigate();
 
@@ -38,7 +40,11 @@ const Header = () => {
       return (
         <ul>
           <li>
-            <SearchBar />
+          <SearchBar
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              onClick={handleSearchByTitle}
+            />
           </li>
           <li>
             <button type="button" onClick={() => handleGoToPage("/favorites")}>
@@ -209,6 +215,10 @@ const Header = () => {
     } else {
       navigate("/login");
     }
+  }
+
+  function handleSearchByTitle() {
+    navigate(`/?title=${search}`);
   }
 
   return (

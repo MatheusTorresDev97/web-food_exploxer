@@ -2,15 +2,17 @@
 import { Container } from "./styles";
 import { FiSearch } from "react-icons/fi";
 
-const SearchBar = ({ ...props }) => {
+const SearchBar = ({ value, onChange, onClick, ...props }) => {
   return (
     <Container>
       <input
         type="text"
         placeholder="Busque pelas opções de pratos"
+        value={value}
+        onChange={onChange}
         {...props}
       />
-      <button>
+       <button onClick={onClick}>
         <FiSearch />
       </button>
     </Container>
