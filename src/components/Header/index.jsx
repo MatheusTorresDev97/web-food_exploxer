@@ -42,7 +42,7 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -82,7 +82,7 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -117,7 +117,12 @@ const Header = () => {
       return (
         <ul className={menuOpen ? "" : "hidden"}>
           <li>
-            <SearchBar />
+            <SearchBar
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onClick={handleSearchByTitle}
+              onKeyPress={activateSearchByEnter}
+            />
           </li>
           <li>
             <button type="button" onClick={() => handleGoToPage("/favorites")}>
@@ -157,7 +162,12 @@ const Header = () => {
       return (
         <ul className={menuOpen ? "" : "hidden"}>
           <li>
-            <SearchBar />
+            <SearchBar
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onClick={handleSearchByTitle}
+              onKeyPress={activateSearchByEnter}
+            />
           </li>
           <li>
             <Link to="/new">
@@ -206,7 +216,7 @@ const Header = () => {
   }
 
   function handleMenuOpen() {
-    setMenuOpen(prevState => !prevState);
+    setMenuOpen((prevState) => !prevState);
   }
 
   function logOutTheUser() {
