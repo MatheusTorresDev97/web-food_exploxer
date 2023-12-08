@@ -17,20 +17,20 @@ import { useAuth } from "../../hooks/useAuth";
 import { useSearch } from "../../hooks/useSearch";
 
 import {
-  FiMenu,
-  FiX,
-  FiPlus,
   FiHeart,
+  FiLogOut,
+  FiMenu,
+  FiPlus,
   FiShoppingCart,
   FiUser,
-  FiLogOut,
-} from "react-icons/fi";
+  FiX,
+} from 'react-icons/fi';
 import { TfiReceipt } from "react-icons/tfi";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { userInfos, deauthenticateUser } = useAuth();
+  const { userInfos, clearLoginData } = useAuth();
   const { search, setSearch } = useSearch();
 
   const navigate = useNavigate();
@@ -42,13 +42,16 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/favorites")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/favorites')}
+            >
               <FiHeart />
             </button>
           </li>
@@ -58,12 +61,18 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/all-orders")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/all-orders')}
+            >
               <TfiReceipt />
             </button>
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/profile")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/profile')}
+            >
               <FiUser />
             </button>
           </li>
@@ -82,7 +91,7 @@ const Header = () => {
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -103,9 +112,9 @@ const Header = () => {
             </Link>
           </li>
           <li>
-          <button onClick={handleSignInSignOut}>
+            <button onClick={handleSignInSignOut}>
               <FiLogOut />
-              </button>
+            </button>
           </li>
         </ul>
       );
@@ -115,17 +124,20 @@ const Header = () => {
   function renderButtonsMobile() {
     if (!userInfos || !userInfos.isAdm) {
       return (
-        <ul className={menuOpen ? "" : "hidden"}>
+        <ul className={menuOpen ? '' : 'hidden'}>
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/favorites")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/favorites')}
+            >
               <FiHeart />
               Favoritos
             </button>
@@ -137,13 +149,19 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/all-orders")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/all-orders')}
+            >
               <TfiReceipt />
               Pedidos
             </button>
           </li>
           <li>
-            <button type="button" onClick={() => handleGoToPage("/profile")}>
+            <button
+              type="button"
+              onClick={() => handleGoToPage('/profile')}
+            >
               <FiUser />
               Perfil
             </button>
@@ -151,7 +169,7 @@ const Header = () => {
           <li>
             <button onClick={handleSignInSignOut}>
               <FiLogOut />
-              {userInfos ? "Sair" : "Entrar"}
+              {userInfos ? 'Sair' : 'Entrar'}
             </button>
           </li>
         </ul>
@@ -160,11 +178,11 @@ const Header = () => {
 
     if (userInfos.isAdm) {
       return (
-        <ul className={menuOpen ? "" : "hidden"}>
+        <ul className={menuOpen ? '' : 'hidden'}>
           <li>
             <SearchBar
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               onClick={handleSearchByTitle}
               onKeyPress={activateSearchByEnter}
             />
@@ -188,10 +206,10 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/login">
+            <button onClick={handleSignInSignOut}>
               <FiLogOut />
-              {userInfos ? "Sair" : "Entrar"}
-            </Link>
+              {userInfos ? 'Sair' : 'Entrar'}
+            </button>
           </li>
         </ul>
       );
@@ -206,7 +224,7 @@ const Header = () => {
       `);
 
       if (response) {
-        navigate("/login");
+        navigate('/login');
       }
     }
 
@@ -216,18 +234,18 @@ const Header = () => {
   }
 
   function handleMenuOpen() {
-    setMenuOpen((prevState) => !prevState);
+    setMenuOpen(prevState => !prevState);
   }
 
   function logOutTheUser() {
-    const confirmation = confirm("Tem certeza que deseja sair?");
+    const confirmation = confirm('Tem certeza que deseja sair?');
 
     if (confirmation) {
-      navigate("/");
+      navigate('/');
 
-      deauthenticateUser();
+      clearLoginData();
 
-      return window.location.reload();
+      window.location.reload();
     }
   }
 
@@ -235,7 +253,7 @@ const Header = () => {
     if (userInfos) {
       logOutTheUser();
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   }
 
@@ -244,7 +262,7 @@ const Header = () => {
   }
 
   function activateSearchByEnter(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearchByTitle();
     }
   }
@@ -254,7 +272,10 @@ const Header = () => {
       <Wrapper>
         <Desktop>
           <Brand to="/">
-            <img src={Logo} alt="Foto do logotipo food explorer" />
+            <img
+              src={Logo}
+              alt="Foto do logotipo food explorer"
+            />
             <h2>food explorer</h2>
           </Brand>
           <nav>{renderButtonsDesktop()}</nav>
@@ -262,7 +283,10 @@ const Header = () => {
         <Mobile>
           <div className="top">
             <Brand to="/">
-              <img src={Logo} alt="Foto do logotipo food explorer" />
+              <img
+                src={Logo}
+                alt="Foto do logotipo food explorer"
+              />
               <h2>food explorer</h2>
             </Brand>
             <HamburgerMenu onClick={handleMenuOpen}>
