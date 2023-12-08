@@ -45,7 +45,6 @@ export function useNew() {
       return handleModal();
     }
 
-    console.log({ ingredientAlreadyRegisteredInTheDB });
 
     setIngredientsOfThisMeal((prevState) => [
       ingredientAlreadyRegisteredInTheDB,
