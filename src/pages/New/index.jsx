@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 import  Loading  from "../../components/Loading";
 import { useNew } from './useNew';
+import { useRegisterNewIngredient } from './useRegisterNewIngredient';
 
 const New = () => {
   const {
@@ -25,15 +26,25 @@ const New = () => {
     setDescription,
     newIngredient,
     setNewIngredient,
-    newIngredientPhoto,
-    setNewIngredientPhoto,
+    setIngredientsOfThisMeal,
     ingredientsOfThisMeal,
     ingredientsRegisteredInDB,
     handleModal,
     handleAddNewIngredient,
     handleRegisterMeal,
-    handleRegisterIngredient,
   } = useNew();
+
+  const {
+    newIngredientPhoto,
+    setNewIngredientPhoto,
+    handleRegisterIngredient,
+  } = useRegisterNewIngredient({
+    handleModal,
+    newIngredient,
+    setIngredientsOfThisMeal,
+    setNewIngredient,
+    ingredientsRegisteredInDB,
+  });
 
   if (!ingredientsRegisteredInDB) {
     return <Loading />;
