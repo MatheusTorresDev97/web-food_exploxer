@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-async-promise-executor */
 import { createContext, useContext } from "react";
 import { api } from "../services/api";
 
@@ -43,6 +40,16 @@ export function RequestProvider({ children }) {
         new Promise(async (resolve, reject) => {
           try {
             const response = await api.delete(resource);
+
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        }),
+      patch: () =>
+        new Promise(async (resolve, reject) => {
+          try {
+            const response = await api.patch(resource, infos);
             resolve(response);
           } catch (error) {
             reject(error);
@@ -50,7 +57,6 @@ export function RequestProvider({ children }) {
         }),
     };
 
-    // eslint-disable-next-line no-unused-vars
     const manageResponseTime = () =>
       new Promise((resolve, reject) => {
         const limitTime = 60 * 1000;

@@ -22,7 +22,7 @@ export const Container = styled.div`
     padding: 15px;
     cursor: pointer;
   }
-  #meal-image {
+  input {
     display: none;
   }
 `;
