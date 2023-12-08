@@ -2,7 +2,6 @@ import { Container } from "./styles";
 import { api } from "../../services/api";
 
 const Meal = ({
-  id,
   title,
   price,
   image,

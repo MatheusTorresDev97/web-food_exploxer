@@ -164,7 +164,6 @@ const ShoppingCart = () => {
                   return (
                     <Meal
                       key={String(meal_id)}
-                      id={meal_id}
                       title={title}
                       price={Number(price * amount).toFixed(2)}
                       image={image}
