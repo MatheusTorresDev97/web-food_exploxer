@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,6 +9,7 @@ import Wrapper from "../../components/Wrapper";
 import Select from "../../components/Select";
 import Loading from "../../components/Loading";
 import { useRequest } from "../../hooks/useRequest";
+import { useAuth } from "../../hooks/useAuth";
 
 const Allorders = () => {
   const [orders, setOrders] = useState();
@@ -17,6 +17,7 @@ const Allorders = () => {
   const [isAdm, setIsAdm] = useState(false);
 
   const { manageRequests } = useRequest();
+  const { userInfos } = useAuth();
 
   const navigate = useNavigate();
 
@@ -90,7 +91,7 @@ const Allorders = () => {
                               <Select
                                 order_id={id}
                                 status={status}
-                                disabled={!isAdm}
+                                disabled={!userInfos.isAdm}
                               />
                             }
                           </td>

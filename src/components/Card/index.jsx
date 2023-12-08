@@ -13,7 +13,6 @@ import { api } from "../../services/api";
 import { useRequest } from "../../hooks/useRequest";
 
 const Card = ({ meal_id, title, description, price, image, isFav }) => {
-  const [isAdm, setIsAdm] = useState(false);
   const [favoriteMeal, setFavoriteMeal] = useState(isFav);
 
   const { userInfos } = useAuth();

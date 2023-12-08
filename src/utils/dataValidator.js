@@ -1,141 +1,147 @@
-export function validateEmail(email) {
+function validateEmail(email) {
     const requiredAttributes = /\S+@\S+\.\S+/;
-
+  
     return requiredAttributes.test(email);
-}
-
-function validatePasswordLength(password) {
+  }
+  
+  function validatePasswordLength(password) {
     const itHasTheMinimumSize = password.length >= 6;
-
+  
     return itHasTheMinimumSize;
-}
-
-export function validateDataToProfile({ name, email, newPassword, oldPassword }) {
+  }
+  
+  function validateDataToProfile({ name, email, newPassword, oldPassword }) {
+    console.log({ name, email, newPassword, oldPassword });
+  
     if (!name) {
-        alert(
-            "O campo com o nome não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com o nome não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     if (!email) {
-        alert(
-            "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     const isAValidEmail = validateEmail(email);
-
+  
     if (!isAValidEmail) {
-        alert("O e-mail informada é inválido! Verifique e tente novamente.");
-
-        return false;
+      alert("O e-mail informada é inválido! Verifique e tente novamente.");
+  
+      return false;
     }
-
+  
     if (newPassword && !oldPassword) {
-        alert(
-            "Para atualizar a senha, é necessário informar a senha antiga! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "Para atualizar a senha, é necessário informar a senha antiga! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
-    const isAValidPassword = validatePasswordLength(newPassword);
-
-    if (!isAValidPassword) {
+  
+    if (newPassword && oldPassword) {
+      const isAValidPassword = validatePasswordLength(newPassword);
+  
+      if (!isAValidPassword) {
         alert(
-            "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
+          "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
         );
-
+  
         return false;
+      }
     }
-
+  
     return true;
-}
-
-export function validateDataToSignUp({ name, email, password }) {
+  }
+  
+  function validateDataToSignUp({ name, email, password }) {
     if (!name) {
-        alert(
-            "O campo com o nome não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com o nome não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     if (!email) {
-        alert(
-            "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     const isAValidEmail = validateEmail(email);
-
+  
     if (!isAValidEmail) {
-        alert("O e-mail informada é inválido! Verifique e tente novamente.");
-
-        return false;
+      alert("O e-mail informada é inválido! Verifique e tente novamente.");
+  
+      return false;
     }
-
+  
     if (!password) {
-        alert(
-            "O campo com a senha não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com a senha não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     const isAValidPassword = validatePasswordLength(password);
-
+  
     if (!isAValidPassword) {
-        alert(
-            "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     return true;
-}
-
-export function validateDataToSignIn({ email, password }) {
+  }
+  
+  function validateDataToSignIn({ email, password }) {
     if (!email) {
-        alert(
-            "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com o e-mail não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     const isAValidEmail = validateEmail(email);
-
+  
     if (!isAValidEmail) {
-        alert("O e-mail informada é inválido! Verifique e tente novamente.");
-
-        return false;
+      alert("O e-mail informada é inválido! Verifique e tente novamente.");
+  
+      return false;
     }
-
+  
     if (!password) {
-        alert(
-            "O campo com a senha não pode ficar vazio! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "O campo com a senha não pode ficar vazio! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     const isAValidPassword = validatePasswordLength(password);
-
+  
     if (!isAValidPassword) {
-        alert(
-            "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
-        );
-
-        return false;
+      alert(
+        "A nova senha deve ter no mínimo 6 caracteres! Verifique e tente novamente."
+      );
+  
+      return false;
     }
-
+  
     return true;
-}
+  }
+
+  export { validateDataToProfile, validateDataToSignIn, validateDataToSignUp };
