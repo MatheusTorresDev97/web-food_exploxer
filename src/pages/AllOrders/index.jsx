@@ -14,8 +14,6 @@ import { useRequest } from "../../hooks/useRequest";
 const Allorders = () => {
   const [orders, setOrders] = useState();
 
-  console.log({ orders });
-
   const [isAdm, setIsAdm] = useState(false);
 
   const { manageRequests } = useRequest();
@@ -57,70 +55,73 @@ const Allorders = () => {
     }
 
     fetchOrders();
-  }, [manageRequests, navigate]);
+  }, []);
 
   return (
     <Container>
       <Header />
       <Wrapper>
-        <Content>
-          <h1>Pedidos</h1>
-          {orders.length == 0 ? (
-            <p>Você ainda não possui nenhum pedido.</p>
-          ) : (
-            <Table>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Status</th>
-                    <th>Código</th>
-                    <th>Detalhamento</th>
-                    <th>Data e hora</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map(order => {
-                    const { id, status, meals, created_at } = order;
+        {!orders ? (
+          <Loading />
+        ) : (
+          <Content>
+            <h1>Pedidos</h1>
+            {orders.length == 0 ? (
+              <p>Você ainda não possui nenhum pedido.</p>
+            ) : (
+              <Table>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>Código</th>
+                      <th>Detalhamento</th>
+                      <th>Data e hora</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map(order => {
+                      const { id, status, meals, created_at } = order;
 
-                    return (
-                      <tr key={String(id)}>
-                        <td>
-                          {
-                            <Select
-                              order_id={id}
-                              status={status}
-                              disabled={!isAdm}
-                            />
-                          }
-                        </td>
-                        <td>
-                          <Link to={`/order/${id}`}>
-                            {String(id).padStart(8, "0")}
-                          </Link>
-                        </td>
-                        <td>
-                          {meals.map((meal, index) => {
-                            const lastItemInArray = index == meals.length - 1;
+                      return (
+                        <tr key={String(id)}>
+                          <td>
+                            {
+                              <Select
+                                order_id={id}
+                                status={status}
+                                disabled={!isAdm}
+                              />
+                            }
+                          </td>
+                          <td>
+                            <Link to={`/order/${id}`}>
+                              {String(id).padStart(8, "0")}
+                            </Link>
+                          </td>
+                          <td>
+                            {meals.map((meal, index) => {
+                              const lastItemInArray = index == meals.length - 1;
 
-                            return (
-                              <Fragment key={meal.order_meal_id}>
-                                {meal.meal_amount}x {meal.title}
-                                {lastItemInArray ? "" : ", "}
-                              </Fragment>
-                            );
-                          })}
-                        </td>
-                        <td>{formatDateTime(created_at)}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </Table>
-          )}
-        </Content>
+                              return (
+                                <Fragment key={meal.order_meal_id}>
+                                  {meal.meal_amount}x {meal.title}
+                                  {lastItemInArray ? "" : ", "}
+                                </Fragment>
+                              );
+                            })}
+                          </td>
+                          <td>{formatDateTime(created_at)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </Table>
+            )}
+          </Content>
+        )}
       </Wrapper>
-      {!orders && <Loading />}
       <Footer />
     </Container>
   );
