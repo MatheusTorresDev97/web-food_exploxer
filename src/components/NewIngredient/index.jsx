@@ -3,20 +3,26 @@ import { Container } from "./styles";
 
 import { FiPlus, FiX } from "react-icons/fi";
 
-const NewIngredient = ({ isNew, value }) => {
+const NewIngredient = ({ onClick, onChange, isNew, value }) => {
   return (
     <Container isNew={isNew}>
       {isNew ? (
         <>
-          <input type="text" placeholder={isNew && "Adicionar"}/>
-          <button type="button">
+             <input
+            type="text"
+            placeholder={isNew && "Adicionar"}
+            value={value}
+            onChange={onChange}
+            {...props}
+          />
+           <button type="button" onClick={onClick}>
             <FiPlus />
           </button>
         </>
       ) : (
         <>
           <p>{value}</p>
-          <button type="button">
+          <button type="button" onClick={onClick}>
             <FiX />
           </button>
         </>
