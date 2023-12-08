@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -17,7 +17,7 @@ export const Container = styled.div`
     }
 
     h1 {
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 500;
       font-size: clamp(3.2rem, 8vw, 4rem);
       line-height: 100%;
@@ -25,14 +25,14 @@ export const Container = styled.div`
     }
 
     h3 {
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: clamp(1.4rem, 4vw, 1.6rem);
       font-weight: 400;
     }
   }
 `;
 
-export const Mobile = styled.main`
+const Mobile = styled.main`
   padding: clamp(30px, 8vw, 60px) 0;
 
   @media (min-width: 780px) {
@@ -60,7 +60,7 @@ export const Mobile = styled.main`
   }
 `;
 
-export const Desktop = styled.main`
+const Desktop = styled.main`
   @media (max-width: 780px) {
     display: none;
   }
@@ -73,8 +73,8 @@ export const Desktop = styled.main`
     padding: 85px 0;
     display: grid;
     grid-template-areas:
-      "A B"
-      "A C";
+      'A B'
+      'A C';
     grid-template-columns: 1fr 430px;
     position: relative;
 
@@ -94,3 +94,5 @@ export const Desktop = styled.main`
     }
   }
 `;
+
+export { Container, Mobile, Desktop };

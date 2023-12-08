@@ -6,7 +6,7 @@ import Routes from "./routes";
 import { AuthProvider } from "./hooks/useAuth";
 import { CartProvider } from "./hooks/useCart";
 import { RequestProvider } from "./hooks/useRequest";
-import { SearchProvider } from "./hooks/useSearch";
+import { MealsProvider } from "./hooks/useMeals";
 
 const App = () => {
   return (
@@ -15,9 +15,9 @@ const App = () => {
       <RequestProvider>
         <AuthProvider>
           <CartProvider>
-            <SearchProvider>
+            <MealsProvider>
               <Routes />
-            </SearchProvider>
+            </MealsProvider>
           </CartProvider>
         </AuthProvider>
       </RequestProvider>

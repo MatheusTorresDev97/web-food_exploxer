@@ -1,7 +1,7 @@
 import { FiMenu, FiX } from 'react-icons/fi';
 
 import foodExplorerLogo from '../../assets/logo.svg';
-import  SearchBar  from '../SearchBar';
+import  SearchBar  from './components/SearchBar/index.jsx';
 import  Wrapper  from '../Wrapper';
 import { AdminNavigation } from './components/AdminNavigation';
 import { ClientNavigation } from './components/ClientNavigation';
@@ -26,7 +26,6 @@ export function Header() {
     isUserLoggedIn,
     shouldAdmNavigationBeRendered,
     shouldClientNavigationBeRendered,
-    userInfos,
   } = useHeader();
 
   return (

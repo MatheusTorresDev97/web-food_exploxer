@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 
 import { Container } from "./styles";
@@ -8,7 +5,6 @@ import { Container } from "./styles";
 import  Button  from "../Button";
 import  Card  from "../Card";
 
-import { useSearch } from "../../hooks/useSearch";
 
 export function SectionMeals({ title, meals }) {
   const [showAFewCards, setShowAFewCards] = useState(true);
@@ -17,7 +13,6 @@ export function SectionMeals({ title, meals }) {
 
   const mealsContainer = useRef();
 
-  const { search } = useSearch();
 
   function getTheHeightOfACard() {
     const card = mealsContainer.current.querySelector(".my-card");
@@ -59,7 +54,6 @@ export function SectionMeals({ title, meals }) {
   function renderButtons() {
     if (meals.length < 3) return null;
 
-    if (search) return null;
 
     if (showAFewCards) {
       return <Button title="Mostrar mais" onClick={handleVisibleCards} />;
@@ -68,11 +62,6 @@ export function SectionMeals({ title, meals }) {
     }
   }
 
-  useEffect(() => {
-    if (search) {
-      setShowAFewCards(false);
-    }
-  }, [search]);
 
   useEffect(() => {
     function showAllCardsDuringASearch() {
