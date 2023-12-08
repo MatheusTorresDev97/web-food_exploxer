@@ -103,9 +103,9 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/login">
+          <button onClick={handleSignInSignOut}>
               <FiLogOut />
-            </Link>
+              </button>
           </li>
         </ul>
       );
