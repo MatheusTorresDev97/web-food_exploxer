@@ -8,9 +8,10 @@ import Loading from "../../components/Loading";
 import Food from "../../assets/food.png";
 
 const Home = () => {
-  const { organizedMeals, renderCardsMobile, renderCardsDesktop } = useHome();
+  const { organizedMeals, categories, renderCardsMobile, renderCardsDesktop } =
+  useHome();
 
-  if (!organizedMeals) return <Loading />;
+  if (organizedMeals.length === 0 || !categories) return <Loading />;
 
   return (
     <Container>
