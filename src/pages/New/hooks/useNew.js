@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useRequest } from '../../hooks/request';
+import { useRequest } from "../../../hooks/useRequest";
 
 export function useNew() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
-  const [newIngredient, setNewIngredient] = useState('');
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
+  const [photo, setPhoto] = useState(null);
+
+  const [newIngredient, setNewIngredient] = useState("");
 
   const [ingredientsOfThisMeal, setIngredientsOfThisMeal] = useState([]);
   const [ingredientsRegisteredInDB, setIngredientsRegisteredInDB] = useState();
@@ -20,38 +23,47 @@ export function useNew() {
   const { manageRequests } = useRequest();
 
   function handleModal() {
-    setModalOpen(prevState => !prevState);
+    setModalOpen((prevState) => !prevState);
   }
 
   async function handleAddNewIngredient() {
     if (!newIngredient) return;
 
     const ingredientAlreadyAddedToMeal = ingredientsOfThisMeal.find(
-      ingredient => ingredient == newIngredient
+      (ingredient) => ingredient.name === newIngredient
     );
 
     if (ingredientAlreadyAddedToMeal) {
-      return alert('Este ingrediente já foi adicionado!');
+      return alert("Este ingrediente já foi adicionado!");
     }
 
     const ingredientAlreadyRegisteredInTheDB = ingredientsRegisteredInDB.find(
-      ingredient => ingredient.name === newIngredient
+      (ingredient) => ingredient.name === newIngredient
     );
 
     if (!ingredientAlreadyRegisteredInTheDB) {
       return handleModal();
     }
 
-    setIngredientsOfThisMeal(prevState => [newIngredient, ...prevState]);
-    setNewIngredient('');
+    console.log({ ingredientAlreadyRegisteredInTheDB });
+
+    setIngredientsOfThisMeal((prevState) => [
+      ingredientAlreadyRegisteredInTheDB,
+      ...prevState,
+    ]);
+    setNewIngredient("");
   }
 
-  function handleRegisterMeal() {
-    console.log({ name, category, price, description });
+  function removeNewIngredient(ingredientRemoved) {
+    const ingredientsUpdated = ingredientsOfThisMeal.filter(
+      (ingredient) => ingredient.name !== ingredientRemoved
+    );
+
+    setIngredientsOfThisMeal(ingredientsUpdated);
   }
 
   async function fetchIngredients() {
-    const response = await manageRequests('get', '/ingredients');
+    const response = await manageRequests("get", "/ingredients");
 
     return response;
   }
@@ -65,7 +77,7 @@ export function useNew() {
   function showMessageIfThereIsAnError(withoutErros) {
     if (!withoutErros) {
       alert(
-        'Não foi possível carregar os dados! Por favor, tente novamente mais tarde.'
+        "Não foi possível carregar os dados! Por favor, tente novamente mais tarde."
       );
     }
   }
@@ -73,7 +85,21 @@ export function useNew() {
   function checkIfThisPageWillBeRendered(hadNoProblem) {
     if (hadNoProblem) return;
 
-    navigate('/');
+    navigate("/");
+  }
+
+  function resetAllStates() {
+    setModalOpen(false);
+
+    setTitle("");
+    setCategory("");
+    setPrice("");
+    setDescription("");
+
+    setPhoto(null);
+
+    setNewIngredient("");
+    setIngredientsOfThisMeal([]);
   }
 
   async function loadData() {
@@ -94,8 +120,8 @@ export function useNew() {
     modalOpen,
     category,
     setCategory,
-    name,
-    setName,
+    title,
+    setTitle,
     price,
     setPrice,
     description,
@@ -107,6 +133,7 @@ export function useNew() {
     ingredientsRegisteredInDB,
     handleModal,
     handleAddNewIngredient,
+    removeNewIngredient,
     handleRegisterMeal,
   };
 }

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-import { useRequest } from '../../hooks/useRequest';
+import { useRequest } from '../../../hooks/useRequest';
+import { showErrorMessage } from '../utils/helpers';
+import { errorMessages } from '../utils/messages';
 
 export function useRegisterNewIngredient({
   handleModal,
@@ -9,19 +11,18 @@ export function useRegisterNewIngredient({
   setNewIngredient,
   ingredientsRegisteredInDB,
 }) {
+  const { manageRequests } = useRequest();
+
   const [newIngredientPhoto, setNewIngredientPhoto] = useState();
 
   let ingredientResponse, ingredientPhotoResponse;
 
-  const { manageRequests } = useRequest();
-
   function validateIfNewIngredientIsEmpty() {
     if (!newIngredient) {
-      alert(
-        'Para cadastrar um novo ingrediente é necessário dar um nome a ele. Verifique e tente novamente.'
-      );
-
-      throw new Error('The newIngredient is empty.');
+      showErrorMessage({
+        userMessage: errorMessages.newIngredientEmpty.user,
+        devMessage: errorMessages.newIngredientEmpty.dev,
+      });
     }
   }
 
@@ -31,13 +32,10 @@ export function useRegisterNewIngredient({
     );
 
     if (alreadyRegistered) {
-      alert(
-        'Este nome já foi cadastrado em outro ingrediente. Verifique e tente novamente.'
-      );
-
-      throw new Error(
-        'The name of newIngredient is already registered in database.'
-      );
+      showErrorMessage({
+        userMessage: errorMessages.nameAlreadyRegistered.user,
+        devMessage: errorMessages.nameAlreadyRegistered.dev,
+      });
     }
   }
 
@@ -49,21 +47,28 @@ export function useRegisterNewIngredient({
 
   function ingredientWasRegisteredSuccessfully() {
     const someErrorHappened = Object.prototype.hasOwnProperty.call(
-      ingredientResponse,
+      ingredientResponse.data,
       'message'
     );
 
     if (someErrorHappened) {
-      alert(ingredientResponse.data.message);
-
-      throw new Error('Ingredient was not registered successfully');
+      showErrorMessage({
+        userMessage: ingredientResponse.data.message,
+        devMessage: errorMessages.onRegisterIngredient.dev,
+      });
     }
   }
 
-  function updateStates() {
-    setIngredientsOfThisMeal(prevState => [newIngredient, ...prevState]);
+  function updateDisplay() {
+    setIngredientsOfThisMeal(prevState => [
+      ingredientResponse.data,
+      ...prevState,
+    ]);
     setNewIngredient('');
     setNewIngredientPhoto(null);
+
+    alert('Ingrediente cadastrado com sucesso!');
+    handleModal();
   }
 
   async function handleRegisterWithoutPhoto() {
@@ -73,16 +78,15 @@ export function useRegisterNewIngredient({
     await registerTheIngredient();
     ingredientWasRegisteredSuccessfully();
 
-    updateStates();
-    alert('Ingrediente cadastrado com sucesso!');
-    handleModal();
+    updateDisplay();
   }
 
   function wasThePhotoAdded() {
     if (!newIngredientPhoto) {
-      alert('Nenhuma foto foi adicionada! Verifique e tente novamente.');
-
-      throw new Error('The photo was not added!');
+      showErrorMessage({
+        userMessage: errorMessages.anyPhotoAdded.user,
+        devMessage: errorMessages.anyPhotoAdded.dev,
+      });
     }
   }
 
@@ -101,14 +105,15 @@ export function useRegisterNewIngredient({
 
   function photoWasRegisteredSuccessfully() {
     const someErrorHappened = Object.prototype.hasOwnProperty.call(
-      ingredientPhotoResponse,
+      ingredientPhotoResponse.data,
       'message'
     );
 
     if (someErrorHappened) {
-      alert(ingredientResponse.data.message);
-
-      throw new Error('Ingredient was not registered successfully');
+      showErrorMessage({
+        userMessage: ingredientResponse.data.message,
+        devMessage: errorMessages.onRegisterPhoto.dev,
+      });
     }
   }
 
@@ -123,9 +128,7 @@ export function useRegisterNewIngredient({
     await registerThePhotoOfNewIngredient();
     photoWasRegisteredSuccessfully();
 
-    updateStates();
-    alert('Ingrediente cadastrado com sucesso!');
-    handleModal();
+    updateDisplay();
   }
 
   async function handleRegisterIngredient(registerWithPhoto) {
@@ -135,7 +138,6 @@ export function useRegisterNewIngredient({
   }
 
   return {
-    newIngredientPhoto,
     setNewIngredientPhoto,
     handleRegisterIngredient,
   };

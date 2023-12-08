@@ -9,17 +9,19 @@ import InputImage from "../../components/InputImage";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
-import  Loading  from "../../components/Loading";
-import { useNew } from './useNew';
-import { useRegisterNewIngredient } from './useRegisterNewIngredient';
+import Loading from "../../components/Loading";
+import { useNew } from './hooks/useNew';
+import { useRegisterMeal } from './hooks/useRegisterMeal';
+import { useRegisterNewIngredient } from './hooks/useRegisterNewIngredient';
+
 
 const New = () => {
   const {
     modalOpen,
     category,
     setCategory,
-    name,
-    setName,
+    title,
+    setTitle,
     price,
     setPrice,
     description,
@@ -31,19 +33,30 @@ const New = () => {
     ingredientsRegisteredInDB,
     handleModal,
     handleAddNewIngredient,
-    handleRegisterMeal,
+    removeNewIngredient,
+    photo,
+    setPhoto,
+    resetAllStates,
   } = useNew();
 
-  const {
-    newIngredientPhoto,
-    setNewIngredientPhoto,
-    handleRegisterIngredient,
-  } = useRegisterNewIngredient({
-    handleModal,
+  const { setNewIngredientPhoto, handleRegisterIngredient } =
+    useRegisterNewIngredient({
+      handleModal,
+      newIngredient,
+      setIngredientsOfThisMeal,
+      setNewIngredient,
+      ingredientsRegisteredInDB,
+    });
+
+  const { handleRegisterMeal } = useRegisterMeal({
+    title,
+    category,
+    price,
+    description,
+    ingredientsOfThisMeal,
+    photo,
     newIngredient,
-    setIngredientsOfThisMeal,
-    setNewIngredient,
-    ingredientsRegisteredInDB,
+    resetAllStates,
   });
 
   if (!ingredientsRegisteredInDB) {
@@ -62,12 +75,15 @@ const New = () => {
             to="/"
           />
           <h1>Adicionar Prato</h1>
-          <InputImage />
+          <InputImage
+            isAMeal
+            onChange={e => setPhoto(e.target.files[0])}
+          />
           <Input
             title="Nome"
             placeholder="Ex.: Salada Ceasar"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
           />
           <Input
             title="Categoria"
@@ -78,21 +94,25 @@ const New = () => {
           <Ingredients>
             <p>Ingredientes</p>
             <div className="new-ingredients">
-              {ingredientsOfThisMeal.map(ingredient => (
-                <NewIngredient
-                key={ingredient}
-                value={ingredient}
-                />
-                ))}
-                <NewIngredient
-                  isNew
-                  value={newIngredient}
-                  onChange={e => setNewIngredient(e.target.value)}
-                  onClick={handleAddNewIngredient}
-                />
-              </div>
-            </Ingredients>
-            <Input
+              {ingredientsOfThisMeal.map(ingredient => {
+                const { id, name } = ingredient;
+                return (
+                  <NewIngredient
+                    key={`${id}-${name}`}
+                    value={name}
+                    onClick={() => removeNewIngredient(name)}
+                  />
+                );
+              })}
+              <NewIngredient
+                isNew
+                value={newIngredient}
+                onChange={e => setNewIngredient(e.target.value)}
+                onClick={handleAddNewIngredient}
+              />
+            </div>
+          </Ingredients>
+          <Input
             title="Preço"
             placeholder="R$ 00,00"
             type="text"
@@ -143,10 +163,10 @@ const New = () => {
             title="Cadastrar sem foto"
             isHighlighted={false}
             onClick={() => handleRegisterIngredient(false)}
-            />
-            <Button
-              title="Cadastrar com foto"
-              onClick={() => handleRegisterIngredient(true)}
+          />
+          <Button
+            title="Cadastrar com foto"
+            onClick={() => handleRegisterIngredient(true)}
           />
         </div>
       </Modal>
