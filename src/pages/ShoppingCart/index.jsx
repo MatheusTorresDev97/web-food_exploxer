@@ -207,7 +207,8 @@ const ShoppingCart = () => {
                       <Input
                         title="Número do Cartão"
                         placeholder="0000 0000 0000 0000"
-                        type="number"
+                        type="text"
+                        mask="0000 0000 0000 0000"
                         value={cardNumber}
                         onChange={e => setCardNumber(e.target.value)}
                       />
@@ -222,7 +223,8 @@ const ShoppingCart = () => {
                         <Input
                           title="CVC"
                           placeholder="000"
-                          type="number"
+                          type="text"
+                          mask="000"
                           value={cardSecurityCode}
                           onChange={e => setCardSecurityCode(e.target.value)}
                         />

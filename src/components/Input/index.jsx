@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { Container } from "./styles";
+import { IMaskInput } from "react-imask";
 
 const Input = ({ title, type, placeholder, value, onChange, onKeyPress, ...props }) => {
   return (
     <Container className="my-input">
       <p>{title}</p>
 
-      <input
+      <IMaskInput
         type={type}
         placeholder={placeholder}
         value={value}
