@@ -96,7 +96,10 @@ const Home = () => {
   }
 
   async function fetchMeals() {
-    const mealsResponse = await manageRequests("get", `/meals?title=${search}`);
+    const mealsResponse = await manageRequests(
+      'get',
+      `/meals?search=${search}`
+    );
 
     return mealsResponse;
   }

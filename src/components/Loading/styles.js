@@ -13,7 +13,7 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 4;
   flex-direction: column;
   .circle {
     animation: rotating 1s infinite;
