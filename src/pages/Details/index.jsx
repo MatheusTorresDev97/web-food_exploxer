@@ -13,6 +13,7 @@ import AdmButtons from "../../components/AdmButtons";
 import ClientButtons from "../../components/ClientButtons";
 import { useRequest } from "../../hooks/useRequest";
 import { api } from "../../services/api";
+import { handleImageRequest } from '../../utils/helpers';
 import { useAuth } from "../../hooks/useAuth";
 
 const ingredientImage =
@@ -22,6 +23,7 @@ const Details = () => {
   const { userInfos } = useAuth();
 
   const [mealInfos, setMealInfos] = useState();
+  const [mealImage, setMealImage] = useState();
 
   const { manageRequests } = useRequest();
 
@@ -54,6 +56,18 @@ const Details = () => {
       return <AdmButtons meal_id={meal_id} />;
     }
   }
+
+  async function renderImage() {
+    if (!mealInfos) return;
+
+    const url = `${api.defaults.baseURL}/files/meals/${mealInfos.image}`;
+
+    handleImageRequest({ url, setState: setMealImage });
+  }
+
+  useEffect(() => {
+    renderImage();
+  }, [mealInfos]);
 
   useEffect(() => {
     async function fetchMealInfos() {
@@ -91,7 +105,7 @@ const Details = () => {
           <Content>
             <ButtonText title="voltar" icon={IoIosArrowBack} to="/" />
             <img
-              src={`${api.defaults.baseURL}/files/meals/${mealInfos.image}`}
+               src={mealImage}
               alt={`Foto do item ${mealInfos.title}`}
             />
             <h1>{mealInfos.title}</h1>
