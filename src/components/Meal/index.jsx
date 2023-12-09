@@ -1,5 +1,7 @@
 import { Container } from "./styles";
 import { api } from "../../services/api";
+import { useEffect, useState } from "react";
+import { handleImageRequest } from '../../utils/helpers';
 
 const Meal = ({
   title,
