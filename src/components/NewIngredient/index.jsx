@@ -3,7 +3,7 @@ import { Container } from "./styles";
 
 import { FiPlus, FiX } from "react-icons/fi";
 
-const NewIngredient = ({ onClick, onChange, isNew, value }) => {
+const NewIngredient = ({ onClick, onChange, isNew, value, ...props }) => {
   return (
     <Container isNew={isNew}>
       {isNew ? (

@@ -1,5 +1,7 @@
 import { Container, Input, ButtonSearch } from './styles';
 import { FiSearch } from "react-icons/fi";
+import { useSearchBar } from './useSearchBar';
+
 
 const SearchBar = () => {
   const { handleSearch } = useSearchBar();

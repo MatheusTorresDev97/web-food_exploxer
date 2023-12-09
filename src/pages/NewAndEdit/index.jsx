@@ -1,15 +1,15 @@
 import { FiX } from 'react-icons/fi';
 import { IoIosArrowBack } from 'react-icons/io';
 
-import { Button } from '../../components/Button';
-import { ButtonText } from '../../components/ButtonText';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { Input } from '../../components/Input';
-import { InputImage } from '../../components/InputImage';
-import { Loading } from '../../components/Loading';
-import { NewIngredient } from '../../components/NewIngredient';
-import { Wrapper } from '../../components/Wrapper';
+import  Button  from '../../components/Button';
+import ButtonText  from '../../components/ButtonText';
+import  Footer  from '../../components/Footer';
+import  Header  from '../../components/Header';
+import  Input  from '../../components/Input';
+import  InputImage  from '../../components/InputImage';
+import  Loading  from '../../components/Loading';
+import  NewIngredient  from '../../components/NewIngredient';
+import  Wrapper  from '../../components/Wrapper';
 import { useEditMeal } from './hooks/useEditMeal';
 import { useNewAndEdit } from './hooks/useNewAndEdit';
 import { useRegisterMeal } from './hooks/useRegisterMeal';
@@ -17,7 +17,7 @@ import { useRegisterNewIngredient } from './hooks/useRegisterNewIngredient';
 import { useValidations } from './hooks/useValidations';
 import { Container, Description, Form, Ingredients, Modal } from './styles';
 
-export function NewAndEdit() {
+export default function NewAndEdit() {
   const {
     modalOpen,
     category,

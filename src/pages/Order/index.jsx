@@ -11,7 +11,7 @@ import Header from "../../components/Header";
 import Meal from "../../components/Meal";
 import Wrapper from "../../components/Wrapper";
 import Loading from "../../components/Loading";
-import useRequest from "../../hooks/useRequest";
+import { useRequest } from "../../hooks/useRequest";
 
 const Order = () => {
   const [orderInfos, setOrderInfos] = useState();

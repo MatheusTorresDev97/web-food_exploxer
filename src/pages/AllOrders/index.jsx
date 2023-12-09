@@ -14,8 +14,6 @@ import { useAuth } from "../../hooks/useAuth";
 const Allorders = () => {
   const [orders, setOrders] = useState();
 
-  const [isAdm, setIsAdm] = useState(false);
-
   const { manageRequests } = useRequest();
   const { userInfos } = useAuth();
 

@@ -18,7 +18,7 @@ import {
 } from './styles.js';
 import { useHeader } from './useHeader';
 
-export function Header() {
+export default function Header() {
   const {
     handleLogout,
     handleMenu,

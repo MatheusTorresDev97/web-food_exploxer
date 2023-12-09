@@ -1,16 +1,16 @@
-import { createContext, useContext } from "react";
-import { api } from "../services/api";
+import { createContext, useContext } from 'react';
+
+import { api } from '../services/api';
 
 const Request = createContext();
 
-export function RequestProvider({ children }) {
+function RequestProvider({ children }) {
   async function manageRequests(type, resource, infos = null) {
     const availableRequests = {
       get: () =>
         new Promise(async (resolve, reject) => {
           try {
             const response = await api.get(resource);
-
             resolve(response);
           } catch (error) {
             reject(error);
@@ -19,8 +19,8 @@ export function RequestProvider({ children }) {
       post: () =>
         new Promise(async (resolve, reject) => {
           try {
-            console.log("entrou aqui");
             const response = await api.post(resource, infos);
+
             resolve(response);
           } catch (error) {
             reject(error);
@@ -50,6 +50,7 @@ export function RequestProvider({ children }) {
         new Promise(async (resolve, reject) => {
           try {
             const response = await api.patch(resource, infos);
+
             resolve(response);
           } catch (error) {
             reject(error);
@@ -58,12 +59,12 @@ export function RequestProvider({ children }) {
     };
 
     const manageResponseTime = () =>
-      new Promise((resolve, reject) => {
+      new Promise(resolve => {
         const limitTime = 60 * 1000;
 
         setTimeout(() => {
           const maximumTimeExceeded = new Error(
-            "Maximum response time has been exceeded!"
+            'Maximum response time has been exceeded!'
           );
 
           resolve(maximumTimeExceeded);
@@ -87,9 +88,10 @@ export function RequestProvider({ children }) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useRequest() {
+function useRequest() {
   const context = useContext(Request);
 
   return context;
 }
+
+export { RequestProvider, useRequest };

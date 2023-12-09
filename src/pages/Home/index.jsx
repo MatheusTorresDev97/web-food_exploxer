@@ -11,7 +11,6 @@ const Home = () => {
   const { organizedMeals, categories, renderCardsMobile, renderCardsDesktop } =
   useHome();
 
-  if (organizedMeals.length === 0 || !categories) return <Loading />;
 
   return (
     <Container>

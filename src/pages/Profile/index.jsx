@@ -11,7 +11,7 @@ import Header from "../../components/Header";
 import Wrapper from "../../components/Wrapper";
 import Footer from "../../components/Footer";
 
-import { Loading } from "../../components/Loading";
+import  Loading  from "../../components/Loading";
 import { useAuth } from "../../hooks/useAuth";
 import { useRequest } from "../../hooks/useRequest";
 import { validateDataToProfile } from "../../utils/dataValidator";
